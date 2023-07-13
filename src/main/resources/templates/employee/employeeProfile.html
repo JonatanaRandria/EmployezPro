@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee  profile</title>
+</head>
+<body>
+    <div>
+      <div>
+          <div>
+              <span th:if="${employee.profileImage== null}">No profile image</span>
+              <span th:unless="${employee.profileImage== null}">
+             <img th:src="'data:image/jpeg;base64,' + ${employee.profileImage}" width="100px" height="100px"  alt="image" src="">
+        </span>
+          </div>
+          <p th:text="${employee.firstName}"></p>
+          <p th:text="${employee.lastName}"></p>
+          <p th:text="${employee.birthDate}"></p>
+      </div>
+        <button class="btn btn-danger" type="button"><a href="/">Return to List</a></button>
+    </div>
+</body>
+</html>
