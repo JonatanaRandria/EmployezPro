@@ -22,7 +22,7 @@ import java.util.List;
     @GetMapping(value = "/")
     public String index(Model model) {
         List<EmployeeEntity> employeeEntities = employeeService.getEmployees();
-        model.addAttribute("employees", employeeEntities);
+        model.addAttribute("employeeEntities", employeeEntities);
 
         return "index";
     }
@@ -40,14 +40,14 @@ import java.util.List;
     @GetMapping(value = "/employee/{id}")
     public String getEmployeeById(@PathVariable Long id,Model model) {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
-        model.addAttribute("employee", employeeEntity);
+        model.addAttribute("employeeEntity", employeeEntity);
         return "employee/employeeProfile";
     }
 
     @GetMapping(value = "/employee/{id}/edit")
     public String UpdateEmployeeById(@PathVariable Long id,Model model) {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
-        model.addAttribute("employee", employeeEntity);
+        model.addAttribute("employeeEntity", employeeEntity);
         return "employee/updateEmployee";
     }
     }
