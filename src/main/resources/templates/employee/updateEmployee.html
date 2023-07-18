@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script th:inline="javascript" >
+    function redirectEmployee(id) {
+        return window.location.href = '/employeeEntity/' + id;
+    }
+</script>
+<body>
+<h1>Modifier un employé</h1>
+<form th:object="${employeeEntity}" th:action="@{/employeeEntities/{id}/edit}" method="PUT">
+  <input type="text" th:field="*{firstName}" placeholder="Prénom" th:value="${employeeEntity.firstName}" />
+  <input type="text" th:field="*{lastName}" placeholder="Nom" th:value="${employeeEntity.lastName}" />
+    <div class="mb-3">
+        <label for="image" class="form-label">Profile pic</label>
+        <input type="file" class="form-control" id="image" name="image" th:field="*{profileImage}">
+    </div>   <button class="btn btn-info"  th:onclick="redirectEmployee([[${employeeEntity.id}]])">Soumettre la mis à jour</button>
+</form>
+<button class="btn btn-danger" type="button"><a href="/">Retour à la liste</a></button>
+</body>
+</html>

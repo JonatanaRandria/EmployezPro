@@ -8,21 +8,21 @@
 </head>
 <body>
 
-<div class="card" style="width: 18rem;">
-        <span th:if="${employee.profileImage== null}">Aucune photo</span>
-        <span th:unless="${employee.profileImage== null}">
-             <img th:src="'data:image/jpeg;base64,' + ${employee.profileImage}" width="100px" height="100px"  alt="image" src="">
+<div class="card position-absolute top-50 start-50 translate-middle text-align-center p-auto position-absolute top-50 start-50 translate-middle" style="width: 18rem;">
+        <span th:if="${employeeEntity.profileImage== null}">Aucune photo</span>
+        <span th:unless="${employeeEntity.profileImage== null}">
+             <img th:src="'data:image/jpeg;base64,' + ${employeeEntity.profileImage}" class="w-75 h-75 rounded border"  alt="image" src="">
         </span>
     <div class="card-body">
         <h5 class="card-title">
-            <p th:text="${employee.firstName}"></p>
+            <p th:text="${employeeEntity.firstName}"></p>
         </h5>
         <div>
-            <p  class="card-text" th:text="${employee.lastName}"></p>
-            <p th:text="${employee.birthDate}"></p>
+            <p  class="card-text" th:text="${employeeEntity.lastName}"></p>
+            <p th:text="${employeeEntity.birthDate}"></p>
         </div>
 
-        <a href="/" class="btn btn-primary"><button class="btn btn-danger" type="button"><a href="/">Return to List</a></button></a>
+        <button class="btn btn-danger" type="button"><a href="/">Return to List</a></button>
     </div>
 </div>
 

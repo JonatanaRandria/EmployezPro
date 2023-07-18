@@ -10,46 +10,25 @@
 </head>
 <script th:inline="javascript" >
     function redirectEmployee(id) {
-
-        return window.location.href = '/employee/' + id;
-
+        return window.location.href = '/employeeEntity/' + id;
+    }
+    function redirectEmployeeToEdit(id) {
+        return window.location.href = '/employeeEntity/' + id+'/edit';
     }
 </script>
 <body>
-<h2>Add Employee</h2>
-<form action="/addEmployee" method="POST" th:object="${newEmployee}" enctype="multipart/form-data"
-      class="needs-validation">
-
-    <div class="mb-3 mt-5">
-        <label for="firstName" class="form-label">First name</label>
-        <input type="text" name="firstName" th:field="*{firstName}" class="form-control" id="firstName"
-               placeholder="John">
-    </div>
-    <div class="mb-3">
-        <label for="lastName" class="form-label">Last name</label>
-        <input type="text" name="lastName" th:field="*{lastName}" class="form-control" id="lastName"
-               placeholder="Doe">
-    </div>
-    <div class="mb-3">
-        <label for="birthDate" class="form-label">Birthdate</label>
-        <input type="date" name="birthDate" th:field="*{birthDate}" class="form-control" id="birthDate"
-               placeholder="John Doe">
-    </div>
-    <div class="mb-3">
-        <label for="image" class="form-label">Profile pic</label>
-        <input type="file" class="form-control" id="image" name="image" th:field="*{profileImage}">
-    </div>
-    <div class="ml-4">
-        <button class="btn btn-primary" type="submit">Enregistrer</button>
-        <button class="btn btn-danger" type="button"><a href="/">Cancel</a></button>
-    </div>
-</form>
-
-</form>
-
+<h1>
+    Welcome to our Employee Management
+</h1>
 <h2>Employees</h2>
-<table>
-    <thead>
+    <button class="btn btn-info" type="button"><a href="/addEmployee">Add new employeeEntity</a></button></a>
+<table th:switch="${#lists.size(employeeEntities)}" class="table table-bordered table-striped" id="employeeTable">
+        <span th:case="0">
+            we have no employeeEntities
+        </span>
+    <span th:case="*">
+                    <thead>
+        <tr>
     <tr>
         <th>Profile image</th>
         <th>First Name</th>
@@ -58,23 +37,25 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="employee : ${employees}">
+    <tr th:each="employeeEntity : ${employeeEntities}">
         <td>
-            <span th:if="${employee.profileImage== null}">No profile image</span>
-            <span th:unless="${employee.profileImage== null}">
-             <img th:src="'data:image/jpeg;base64,' + ${employee.profileImage}" width="80px" height="80px"  alt="image" src="">
+            <span th:if="${employeeEntity.profileImage== null}">No profile image</span>
+            <span th:unless="${employeeEntity.profileImage== null}">
+             <img th:src="'data:image/jpeg;base64,' + ${employeeEntity.profileImage}" width="80px" height="80px"  alt="image" src="">
         </span>
         </td>
 
 
-        <td th:text="${employee.firstName}"></td>
-        <td th:text="${employee.lastName}"></td>
-        <td th:text="${employee.birthDate}"></td>
+        <td th:text="${employeeEntity.firstName}"></td>
+        <td th:text="${employeeEntity.lastName}"></td>
+        <td th:text="${employeeEntity.birthDate}"></td>
         <td>
-            <button  th:onclick="redirectEmployee([[${employee.id}]])">View</button>
+            <button class="btn btn-info"  th:onclick="redirectEmployee([[${employeeEntity.id}]])">Voir la carte employ?e</button>
+            <button class="btn btn-info"  th:onclick="redirectEmployeeToEdit([[${employeeEntity.id}]])">Modifier</button>
             </td>
     </tr>
     </tbody>
+    </span>
 </table>
 
 
