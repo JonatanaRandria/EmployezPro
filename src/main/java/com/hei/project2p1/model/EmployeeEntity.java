@@ -1,13 +1,23 @@
 package com.hei.project2p1.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.hei.project2p1.model.utils.SocialCategory;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "\"employee\"")
@@ -17,30 +27,32 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeEntity implements Serializable {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
-
-    private String matricule;
+public class EmployeeEntity extends UserEntity implements Serializable  {
+    private String ref;
     private String firstName;
     private String lastName;
     private String birthDate;
     @Lob
     private String profileImage;
     private String sex;
-    private List<String> phoneNumbers;
+
+    @OneToMany
+    private List<PhoneEntity> phoneNumbers;
+
     private String address;
     private String personalEmail;
     private String workEmail;
-    private String cinNumber;
-    private LocalDate cinIssueDate;
-    private String cinIssuePlace;
+
+    @OneToOne
+    private IdentityCardEntity identityCard;
+
     private String jobFunction;
     private int numberOfChildren;
+
     private LocalDate hireDate;
     private LocalDate departureDate;
-    private String socioProfessionalCategory;
+
+    private SocialCategory socioProfessionalCategory;
     private String cnapsNumber;
 
 }
