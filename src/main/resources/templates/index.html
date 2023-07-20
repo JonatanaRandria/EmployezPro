@@ -27,6 +27,19 @@
             we have no employeeEntities
         </span>
     <span th:case="*">
+
+         <label for="department">Filter by Criteria:</label>
+        <select id="department" name="department" >
+            <option value="">No filter</option>
+            <option>firstName</option>
+            <option>hire Date</option>
+            <option>Departure date</option>
+            <option>socio criteria </option>
+            <option> Sex </option>
+            <option> Function </option>
+
+        </select>
+        <button type="submit">Filter</button>
                     <thead>
         <tr>
     <tr>

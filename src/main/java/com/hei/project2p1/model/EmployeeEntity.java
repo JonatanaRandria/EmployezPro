@@ -3,6 +3,9 @@ package com.hei.project2p1.model;
 import com.hei.project2p1.model.utils.SocialCategory;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
@@ -20,14 +23,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "\"employee\"")
 @Getter
 @Setter
 @ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeEntity extends UserEntity implements Serializable  {
+public class EmployeeEntity implements Serializable  {
+    @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
     private String ref;
     private String firstName;
     private String lastName;
