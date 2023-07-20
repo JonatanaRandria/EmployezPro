@@ -1,5 +1,6 @@
 package com.hei.project2p1.controller.model;
 
+import com.hei.project2p1.model.PhoneEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,15 +24,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeModel {
+
     private String firstName;
     private String lastName;
     private String birthDate;
     private MultipartFile profileImage;
+
     @Column(name = "\"sex\"")
     @Enumerated(EnumType.STRING)
     private Sex sex;
+
     @Column(unique = true)
-    private List<String> phoneNumbers;
+    private List<PhoneEntity> phoneNumbers;
 
     private String address;
     private EmailModel emailModel;
@@ -45,7 +49,7 @@ public class EmployeeModel {
     private String cnapsNumber;
 
     public enum Sex {
-       M,F,NOT_PRECISED
+       M,F
     }
 
     public enum Category{
