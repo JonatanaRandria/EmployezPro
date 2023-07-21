@@ -1,0 +1,22 @@
+CREATE TABLE employee (
+                           id SERIAL PRIMARY KEY,
+                           ref VARCHAR(255) NOT NULL,
+                           first_name VARCHAR(255) NOT NULL,
+                           last_name VARCHAR(255) NOT NULL,
+                           birth_date DATE NOT NULL,
+                           profile_image TEXT,
+                           sex VARCHAR(10) NOT NULL,
+                           address TEXT,
+                           personal_email VARCHAR(255),
+                           phone_numbers_id BIGINT,
+                           work_email VARCHAR(255),
+                           identity_card_id BIGINT,
+                           job_function VARCHAR(255),
+                           number_of_children INTEGER,
+                           hire_date DATE,
+                           departure_date DATE,
+                           socio_professional_category VARCHAR(255),
+                           cnaps_number VARCHAR(255),
+                           CONSTRAINT fk_identity_card FOREIGN KEY (identity_card_id) REFERENCES identity_card (id),
+                           CONSTRAINT phone_numbers_id FOREIGN KEY (phone_numbers_id) REFERENCES phone_numbers (id)
+);
