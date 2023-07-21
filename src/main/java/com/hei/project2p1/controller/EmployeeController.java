@@ -2,8 +2,11 @@ package com.hei.project2p1.controller;
 
 import com.hei.project2p1.controller.mapper.EmployeeMapper;
 import com.hei.project2p1.controller.model.EmployeeModel;
+import com.hei.project2p1.controller.model.UserModel;
 import com.hei.project2p1.model.EmployeeEntity;
 import com.hei.project2p1.service.EmployeeService;
+import com.hei.project2p1.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,19 +14,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @AllArgsConstructor
-    public class EmployeeController {
+    public class EmployeeController extends AuthenticatedController {
 
      private final EmployeeService employeeService;
      private final EmployeeMapper employeeMapper;
+     private final UserService userService;
 
     @GetMapping(value = "/")
     public String index(Model model) {
+
         List<EmployeeEntity> employeeEntities = employeeService.getEmployees();
         model.addAttribute("employeeEntities", employeeEntities);
-
         return "index";
     }
 
@@ -50,4 +55,21 @@ import java.util.List;
         model.addAttribute("employeeEntity", employeeEntity);
         return "employee/updateEmployee";
     }
+    @GetMapping(value = "/login")
+    public String LoginPage() {
+        return "register/login";
+    }
+
+    @PostMapping(value = "/login")
+    public String Login(@ModelAttribute("employee")UserModel userModel, HttpSession response) {
+       boolean auth = userService.authenticated(userModel.getUserName(),userModel.getPassword(),response);
+        if(auth){
+            return "index";
+        }
+        return  "register/login";
+
+    }
+
+
+
     }
