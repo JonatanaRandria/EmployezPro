@@ -22,6 +22,7 @@
 </h1>
 <h2>Employees</h2>
     <button class="btn btn-info" type="button"><a href="/addEmployee">Add new employeeEntity</a></button></a>
+
 <table th:switch="${#lists.size(employeeEntities)}" class="table table-bordered table-striped" id="employeeTable">
         <span th:case="0">
             we have no employeeEntities
@@ -29,17 +30,28 @@
     <span th:case="*">
 
          <label for="department">Filter by Criteria:</label>
-        <select id="department" name="department" >
+        <select id="department" name="department"  >
             <option value="">No filter</option>
             <option>firstName</option>
             <option>hire Date</option>
             <option>Departure date</option>
             <option>socio criteria </option>
+            <option> </option>
             <option> Sex </option>
             <option> Function </option>
-
         </select>
-        <button type="submit">Filter</button>
+        <form th:action="@{/employee}" method="get">
+            <input type="text" name="firstName" placeholder="search by firstNam">
+            <input type="text" name="lastName" placeholder="search by lastName">
+            <input type="text" name="jobFunction" placeholder="search by Job Function">
+            <input type="date" name="entrance" >
+            <select name="sex" id="sex">
+                <option value="M">M</option>
+                <option value="F">F</option>
+            </select>
+            <input type="date" name="departure">
+    <button type="submit">Rechercher</button>
+</form>
                     <thead>
         <tr>
     <tr>

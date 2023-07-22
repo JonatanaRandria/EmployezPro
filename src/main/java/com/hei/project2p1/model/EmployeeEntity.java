@@ -25,6 +25,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "\"employee\"")
 @ToString
 @Builder
 @AllArgsConstructor
@@ -36,7 +37,7 @@ public class EmployeeEntity implements Serializable  {
     private String ref;
     private String firstName;
     private String lastName;
-    private String birthDate;
+    private LocalDate birthDate;
     @Lob
     private String profileImage;
     private String sex;

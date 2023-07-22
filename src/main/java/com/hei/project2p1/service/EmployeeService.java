@@ -1,10 +1,12 @@
 package com.hei.project2p1.service;
 
 import com.hei.project2p1.model.EmployeeEntity;
+import com.hei.project2p1.model.utils.Sex;
 import com.hei.project2p1.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,7 +17,9 @@ public class EmployeeService {
     public List<EmployeeEntity> getEmployees() {
      return  employeeRepository.findAll();
     }
-
+    public List<EmployeeEntity> getFilteredEmployees(String firstName, String lastName, String jobFunction, LocalDate entrance, LocalDate departure, String sex){
+    return employeeRepository.findByAllFilters(firstName,lastName,sex,jobFunction,entrance,departure);
+    }
     public void  saveEmployee(EmployeeEntity employeeEntity){
         employeeRepository.save(employeeEntity);
     }

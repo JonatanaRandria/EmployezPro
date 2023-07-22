@@ -27,7 +27,7 @@ public class EmployeeModel {
 
     private String firstName;
     private String lastName;
-    private String birthDate;
+    private LocalDate birthDate;
     private MultipartFile profileImage;
 
     @Column(name = "\"sex\"")
@@ -45,6 +45,7 @@ public class EmployeeModel {
     private LocalDate hireDate;
     private LocalDate departureDate;
 
+    @Enumerated(EnumType.STRING)
     private Category socioProfessionalCategory;
     private String cnapsNumber;
 
