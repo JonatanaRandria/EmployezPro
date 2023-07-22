@@ -23,6 +23,7 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
             "AND (:jobFunction IS NULL OR e.jobFunction LIKE %:jobFunction%) " +
             "AND (:startDate IS NULL OR e.hireDate >= :startDate) " +
             "AND (:endDate IS NULL OR e.departureDate <= :endDate)")
-    List<EmployeeEntity> findByAllFilters(String firstName, String lastName, String sex, String jobFunction,
+    List<EmployeeEntity> findByAllFilters(String firstName, String lastName, String sex,
+                                          String jobFunction,
                                     LocalDate startDate, LocalDate endDate);
 }

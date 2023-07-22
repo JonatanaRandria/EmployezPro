@@ -77,10 +77,14 @@ public class EmployeeController extends AuthenticatedController {
         @RequestParam(value= "firstName", required = false) String firstName,
         @RequestParam(value= "jobFunction", required = false) String jobFunction,
         @RequestParam(value= "sex", required = false) String sex,
-        @RequestParam(value= "entrance", required = false) LocalDate entrance,
-        @RequestParam(value= "departure", required = false) LocalDate departure) {
+        @RequestParam(value= "entrance", required = false) String entrance,
+        @RequestParam(value= "departure", required = false) String departure) {
+
+        LocalDate hire = (entrance != null && !entrance.isEmpty()) ? LocalDate.parse(entrance) : null;
+        LocalDate fired = (departure != null && !departure.isEmpty()) ? LocalDate.parse(departure) : null;
+
         if(lastName !=null || firstName != null || jobFunction != null){
-            List<EmployeeEntity> employeeEntities = employeeService.getFilteredEmployees(firstName,lastName,jobFunction,departure,entrance,sex);
+            List<EmployeeEntity> employeeEntities = employeeService.getFilteredEmployees(firstName,lastName,jobFunction,hire,fired,sex);
             model.addAttribute("employeeEntities", employeeEntities);
             return "index";
         }
@@ -101,4 +105,4 @@ public class EmployeeController extends AuthenticatedController {
 }
 
 
-//~ Formatted by Jindent --- http://www.jindent.com
+
