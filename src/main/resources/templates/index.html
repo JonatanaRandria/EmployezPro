@@ -23,6 +23,14 @@
         const entranceInput = document.querySelector('input[name="entrance"]');
         const departureInput = document.querySelector('input[name="departure"]');
         const sexSelect = document.getElementById('sex');
+        const sortSelect = document.getElementById('criteria');
+        const   sortorderSelect = document.getElementById('sortOrder');
+        if (sortSelect && firstNameInput.value === ''|| sortSelect.value==="null") {
+            sortSelect.disabled = true;
+        }
+        if (sortorderSelect && firstNameInput.value === ''|| sortorderSelect.value==="null") {
+            sortorderSelect  .disabled = true;
+        }
 
         if (firstNameInput && firstNameInput.value === ''|| firstNameInput.value==="null") {
             firstNameInput.disabled = true;
@@ -48,76 +56,127 @@
             sexSelect.disabled = true;
         }
     }
+    function extractBase64FromSrc(src) {
+        // Extract the base64 value from the src attribute
+        var startIndex = src.indexOf('base64,') + 7;
+        return src.substring(startIndex);
+    }
+
+    function exportToCSV() {
+        var csvContent = "data:text/csv;charset=utf-8,";
+        var table = document.querySelector("table");
+        var rows = table.querySelectorAll("tr");
+
+        // Add table headers to CSV content
+        var headers = table.querySelectorAll("th");
+        var headerRow = [];
+        headers.forEach(function (header) {
+            headerRow.push(header.innerText);
+        });
+        csvContent += headerRow.join(",") + "\n";
+
+        rows.forEach(function (row) {
+            var rowData = [];
+            var columns = row.querySelectorAll("td");
+
+            columns.forEach(function (column) {
+                // Exclude the buttons
+                if (column.classList.contains("exclude-from-csv")) {
+                    return; // Skip this column
+                }
+
+                // Extract the base64 value from the image src
+                var imageElement = column.querySelector("img");
+                if (imageElement) {
+                    rowData.push(extractBase64FromSrc(imageElement.getAttribute("src")));
+                } else {
+                    rowData.push(column.innerText);
+                }
+            });
+
+            // Include rowData in the CSV content only if it is not empty
+            if (rowData.length > 0) {
+                csvContent += rowData.join(",") + "\n";
+            }
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.getElementById("exportLink");
+        link.setAttribute("href", encodedUri);
+        link.click();
+    }
 </script>
 <body>
 <h1>
     Welcome to our Employee Management
 </h1>
 <h2>Employees</h2>
-    <button class="btn btn-info" type="button"><a href="/addEmployee">Add new employeeEntity</a></button></a>
-
+<button class="btn btn-info" type="button"><a href="/addEmployee">Add new employeeEntity</a></button></a>
 <table th:switch="${#lists.size(employeeEntities)}" class="table table-bordered table-striped" id="employeeTable">
-        <span th:case="0">
-            we have no employeeEntities
-        </span>
+         <span th:case="0">
+         we have no employeeEntities
+         </span>
     <span th:case="*">
-
-         <label for="department">Filter by Criteria:</label>
-        <select id="department" name="department"  >
-            <option value="">No filter</option>
-            <option>firstName</option>
-            <option>hire Date</option>
-            <option>Departure date</option>
-            <option>socio criteria </option>
-            <option> </option>
-            <option> Sex </option>
-            <option> Function </option>
-        </select>
-        <form th:action="@{/employee}" id="employeeForm"  method="get">
-            <input type="text" name="firstName"  th:value="${firstName}" placeholder="search by firstNam">
-            <input type="text" name="lastName"  th:value="${lastName}" placeholder="search by lastName">
-            <input type="text" name="jobFunction"  th:value="${jobFunction}" placeholder="search by Job Function">
-            <input type="date" name="entrance"  th:value="${hireDate}" >
-            <input type="date" name="departure"  th:value="${departureDate}">
-            <select name="sex" th:value="${sex}"  id="sex">
-                <option value="null" id="not_specified">not specified</option>
-                <option value="M">M</option>
-                <option value="F">F</option>
-            </select>
-    <button type="submit"   onclick="submitForm()" >Rechercher</button>
-</form>
-                    <thead>
-        <tr>
-    <tr>
-        <th>Profile image</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Birth Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="employeeEntity : ${employeeEntities}">
-        <td>
-            <span th:if="${employeeEntity.profileImage== null}">No profile image</span>
-            <span th:unless="${employeeEntity.profileImage== null}">
-             <img th:src="'data:image/jpeg;base64,' + ${employeeEntity.profileImage}" width="80px" height="80px"  alt="image" src="">
-        </span>
-        </td>
+            <div>
+               <form th:action="@{/employee}" id="employeeForm"  method="get">
 
 
-        <td th:text="${employeeEntity.firstName}"></td>
-        <td th:text="${employeeEntity.lastName}"></td>
-        <td th:text="${employeeEntity.birthDate}"></td>
-        <td>
-            <button class="btn btn-info"  th:onclick="redirectEmployee([[${employeeEntity.id}]])">Voir la carte employ?e</button>
-            <button class="btn btn-info"  th:onclick="redirectEmployeeToEdit([[${employeeEntity.id}]])">Modifier</button>
-            </td>
-    </tr>
-    </tbody>
-    </span>
+                     <select id="criteria" name="sortBy" th:value="${criteria}"  >
+                        <option value="null">not specified</option>
+                        <option value="firstName">firstName</option>
+                        <option value="lastName">lastName</option>
+                        <option value="sex">Sex</option>
+                        <option value="hireDate">hire Date</option>
+                        <option value="departureDate">departure Date </option>
+                        <option value="jobFunction">Job Function </option>
+                     </select>
+                     <select name="sortOrder" th:value="${sortOrder}" id="sortOrder">
+                        <option value="null">not specified</option>
+                        <option value="ASC">ASC</option>
+                        <option value="DESC">DESC</option>
+                     </select>
+                  <input type="text" name="firstName"  th:value="${firstName}" placeholder="search by firstNam">
+                  <input type="text" name="lastName"  th:value="${lastName}" placeholder="search by lastName">
+                  <input type="text" name="jobFunction"  th:value="${jobFunction}" placeholder="search by Job Function">
+                  <input type="date" name="entrance"  th:value="${hireDate}" >
+                  <input type="date" name="departure"  th:value="${departureDate}">
+                  <select name="sex" th:value="${sex}"  id="sex">
+                     <option value="null" id="not_specified">not specified</option>
+                     <option value="M">M</option>
+                     <option value="F">F</option>
+                  </select>
+                  <button type="submit"   onclick="submitForm()" >Rechercher</button>
+               </form>
+                <a id="exportLink" href="#" download="employee_list.csv" style="display: none;">Export CSV</a>
+                <button onclick="exportToCSV()" >Export CSV</button>
+            </div>
+            <thead>
+               <tr>
+               <tr>
+                  <th class="exclude-from-csv">Profile image</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Birth Date</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr th:each="employeeEntity : ${employeeEntities}">
+                  <td>
+                     <span th:if="${employeeEntity.profileImage== null}">No profile image</span>
+                     <span th:unless="${employeeEntity.profileImage== null}" >
+                     <img th:src="'data:image/jpeg;base64,' + ${employeeEntity.profileImage}" class="exclude-from-csv" width="80px" height="80px"  alt="image" src="">
+                     </span>
+                  </td>
+                  <td th:text="${employeeEntity.firstName}"></td>
+                  <td th:text="${employeeEntity.lastName}"></td>
+                  <td th:text="${employeeEntity.birthDate}"></td>
+                  <td class="exclude-from-csv">
+                     <button class="btn btn-info"  th:onclick="redirectEmployee([[${employeeEntity.id}]])">Voir la carte employ?e</button>
+                     <button class="btn btn-info"  th:onclick="redirectEmployeeToEdit([[${employeeEntity.id}]])">Modifier</button>
+                  </td>
+               </tr>
+            </tbody>
+         </span>
 </table>
-
-
-
 </body>
 </html>

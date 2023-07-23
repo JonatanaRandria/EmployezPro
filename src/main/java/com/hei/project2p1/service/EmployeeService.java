@@ -17,8 +17,8 @@ public class EmployeeService {
     public List<EmployeeEntity> getEmployees() {
      return  employeeRepository.findAll();
     }
-    public List<EmployeeEntity> getFilteredEmployees(String firstName, String lastName, String jobFunction, LocalDate entrance, LocalDate departure, String sex){
-    return employeeRepository.findByAllFilters(firstName,lastName,sex,jobFunction,entrance,departure);
+    public List<EmployeeEntity> getFilteredEmployees(String firstName, String lastName, String jobFunction, LocalDate entrance, LocalDate departure, String sex,String sortBy,String sortOrder){
+    return employeeRepository.findByAllFilters(firstName,lastName,sex,jobFunction,entrance,departure,sortBy,sortOrder);
     }
     public void  saveEmployee(EmployeeEntity employeeEntity){
         employeeRepository.save(employeeEntity);

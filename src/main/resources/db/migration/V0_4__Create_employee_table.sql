@@ -17,6 +17,6 @@ CREATE TABLE employee (
                            departure_date DATE,
                            socio_professional_category VARCHAR(255),
                            cnaps_number VARCHAR(255),
-                           CONSTRAINT fk_identity_card FOREIGN KEY (identity_card_id) REFERENCES identity_card (id),
+                           CONSTRAINT fk_identity_card FOREIGN KEY (identity_card_id) REFERENCES card (id),
                            CONSTRAINT phone_numbers_id FOREIGN KEY (phone_numbers_id) REFERENCES phone_numbers (id)
 );

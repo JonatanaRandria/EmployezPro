@@ -21,14 +21,13 @@ import com.hei.project2p1.service.EmployeeService;
 import com.hei.project2p1.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-public class EmployeeController extends AuthenticatedController {
+public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeMapper  employeeMapper;
     private final UserService     userService;
@@ -78,17 +77,19 @@ public class EmployeeController extends AuthenticatedController {
         @RequestParam(value= "jobFunction", required = false) String jobFunction,
         @RequestParam(value= "sex", required = false) String sex,
         @RequestParam(value= "entrance", required = false) String entrance,
-        @RequestParam(value= "departure", required = false) String departure) {
+        @RequestParam(value= "departure", required = false) String departure,
+                        @RequestParam(value = "sortBy", required = false) String sortBy,
+                        @RequestParam(value = "sortOrder", defaultValue = "asc") String sortOrder) {
 
         LocalDate hire = (entrance != null && !entrance.isEmpty()) ? LocalDate.parse(entrance) : null;
         LocalDate fired = (departure != null && !departure.isEmpty()) ? LocalDate.parse(departure) : null;
 
-        if(lastName !=null || firstName != null || jobFunction != null){
-            List<EmployeeEntity> employeeEntities = employeeService.getFilteredEmployees(firstName,lastName,jobFunction,hire,fired,sex);
+
+            List<EmployeeEntity> employeeEntities = employeeService.getFilteredEmployees(firstName,lastName,jobFunction,hire,fired,sex,sortBy,sortOrder);
             model.addAttribute("employeeEntities", employeeEntities);
-            return "index";
-        }
-        List<EmployeeEntity> employeeEntities = employeeService.getEmployees();
+
+
+
         model.addAttribute("employeeEntities", employeeEntities);
         model.addAttribute("firstName", null);
         model.addAttribute("lastName", null);
@@ -98,6 +99,8 @@ public class EmployeeController extends AuthenticatedController {
         model.addAttribute("jobFunction", null);
         model.addAttribute("hireDate", null);
         model.addAttribute("departureDate", null);
+        model.addAttribute("sortOrder", null);
+        model.addAttribute("criteria", null);
 
         return "index";
     }

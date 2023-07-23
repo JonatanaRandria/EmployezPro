@@ -22,7 +22,7 @@ public class AuthenticatedController implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         if (session == null || session.getAttribute("user") == null) {
             // Si l'utilisateur n'est pas authentifié, redirigez vers la page de connexion
             if (!isLoginPageRequest(request)) {
