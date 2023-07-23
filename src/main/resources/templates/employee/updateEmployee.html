@@ -10,7 +10,19 @@
     }
 </script>
 <body>
-<h1>Modifier un employé</h1>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/logo.png}" alt="" width="40" height="40" class="d-inline-block align-text-top">
+            Carlcare INC.
+        </a>
+        <div class="d-flex row">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/006/184/737/small/logout-sign-out-icon-in-line-style-vector.jpg" width="40" height="40"/>
+            <h5> Logout </h5>
+        </div>
+    </div>
+</nav>
+<h4>Modifier un employé</h4>
 <form th:object="${employeeEntity}" th:action="@{/employeeEntities/{id}/edit}" method="PUT">
   <input type="text" th:field="*{firstName}" placeholder="Prénom" th:value="${employeeEntity.firstName}" />
   <input type="text" th:field="*{lastName}" placeholder="Nom" th:value="${employeeEntity.lastName}" />

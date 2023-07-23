@@ -44,6 +44,7 @@ public class EmployeeEntity implements Serializable  {
     private String sex;
 
     @OneToMany
+    @Column(name = "phone_numbers")
     private List<PhoneEntity> phoneNumbers;
 
     private String address;

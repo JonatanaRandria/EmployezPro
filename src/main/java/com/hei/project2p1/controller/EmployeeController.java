@@ -37,7 +37,6 @@ public class EmployeeController {
     public String Login(@ModelAttribute("employee") UserModel userModel, HttpSession response) {
         userService.authenticated(userModel.getUserName(), userModel.getPassword(), response);
         response.setAttribute("user", userModel.getUserName());
-
         return "redirect:/";
     }
 
@@ -49,12 +48,16 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employee/{id}/edit")
-    public String UpdateEmployeeById(@PathVariable Long id, Model model) {
+    public String UpdateEmployee(@PathVariable Long id, Model model) {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
 
         model.addAttribute("employeeEntity", employeeEntity);
-
-        return "employee/updateEmployee";
+        return "employee/employeeDetails";
+    }
+    @PostMapping(value = "/employee/{id}/edit")
+    public String UpdateEmployeeById(@PathVariable Long id,@ModelAttribute("employeeEntity")EmployeeModel employeeEntity) {
+        employeeService.updateEmployee(id,employeeMapper.toDomain(employeeEntity));
+        return "redirect:/employee/"+id;
     }
 
     @PostMapping("/addEmployee")
@@ -115,11 +118,7 @@ public class EmployeeController {
         return "employee/employeeProfile";
     }
 
-    @GetMapping(value = "/employee/details")
-    public String getEmployeeDetails() {
 
-        return "employee/employeeDetails";
-    }
 }
 
 
