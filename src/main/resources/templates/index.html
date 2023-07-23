@@ -60,7 +60,10 @@
                   <th class="exclude-from-csv">Profile image</th>
                   <th>First Name</th>
                   <th>Last Name</th>
-                  <th>Birth Date</th>
+                  <th>Sex</th>
+                  <th>Job Function</th>
+                  <th>Job hire</th>
+                  <th>Job fire</th>
                </tr>
             </thead>
             <tbody>
@@ -73,10 +76,13 @@
                   </td>
                   <td th:text="${employeeEntity.firstName}"></td>
                   <td th:text="${employeeEntity.lastName}"></td>
-                  <td th:text="${employeeEntity.birthDate}"></td>
+                  <td th:text="${employeeEntity.sex}"></td>
+                  <td th:text="${employeeEntity.firstName}"></td>
+                  <td th:text="${employeeEntity.hireDate}"></td>
+                  <td th:text="${employeeEntity.departureDate}"></td>
                   <td class="exclude-from-csv">
-                     <button class="btn btn-info"  th:onclick="redirectEmployee([[${employeeEntity.id}]])">Voir la carte employ?e</button>
-                     <button class="btn btn-info"  th:onclick="redirectEmployeeToEdit([[${employeeEntity.id}]])">Modifier</button>
+                     <button class="btn btn-info"  th:onclick="redirectEmployee([[${employeeEntity.id}]])">View employee card</button>
+                     <button class="btn btn-info"  th:onclick="redirectEmployeeToEdit([[${employeeEntity.id}]])">Edit</button>
                   </td>
                </tr>
             </tbody>

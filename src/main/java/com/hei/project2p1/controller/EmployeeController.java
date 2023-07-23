@@ -4,10 +4,9 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 
-import java.util.Date;
 import java.util.List;
 
-import com.hei.project2p1.model.utils.Sex;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +24,10 @@ import jakarta.servlet.http.HttpSession;
 
 import lombok.AllArgsConstructor;
 
+
 @Controller
 @AllArgsConstructor
+@Slf4j
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeMapper  employeeMapper;
@@ -65,7 +66,7 @@ public class EmployeeController {
 
     @GetMapping("/addEmployee")
     public String addEmployee(Model model) throws IOException {
-        model.addAttribute("newEmployee", new EmployeeEntity());
+        model.addAttribute("newEmployee", new EmployeeModel());
 
         return "employee/addEmployee";
     }

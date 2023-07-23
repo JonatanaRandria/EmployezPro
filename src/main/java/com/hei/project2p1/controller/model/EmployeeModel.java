@@ -1,6 +1,7 @@
 package com.hei.project2p1.controller.model;
 
 import com.hei.project2p1.model.PhoneEntity;
+import com.hei.project2p1.model.utils.SocialCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -38,15 +39,16 @@ public class EmployeeModel {
     private List<PhoneEntity> phoneNumbers;
 
     private String address;
-    private EmailModel emailModel;
-
+    private String personalMail;
+    private String workMail;
+    private IdentityCardModel cardModel;
     private String jobFunction;
     private int numberOfChildren;
     private LocalDate hireDate;
     private LocalDate departureDate;
 
     @Enumerated(EnumType.STRING)
-    private Category socioProfessionalCategory;
+    private SocialCategory socioProfessionalCategory;
     private String cnapsNumber;
 
     public enum Sex {

@@ -2,6 +2,7 @@ package com.hei.project2p1.model;
 
 import com.hei.project2p1.model.utils.SocialCategory;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,8 +47,12 @@ public class EmployeeEntity implements Serializable  {
     private List<PhoneEntity> phoneNumbers;
 
     private String address;
-    private String personalEmail;
-    private String workEmail;
+    @Column(name = "work_email")
+    private String workMail;
+
+    @Column(name = "personal_email")
+    private String personalMail;
+
 
     @OneToOne
     private IdentityCardEntity identityCard;
