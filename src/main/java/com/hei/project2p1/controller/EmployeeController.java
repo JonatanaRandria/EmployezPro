@@ -90,6 +90,14 @@ public class EmployeeController extends AuthenticatedController {
         }
         List<EmployeeEntity> employeeEntities = employeeService.getEmployees();
         model.addAttribute("employeeEntities", employeeEntities);
+        model.addAttribute("firstName", null);
+        model.addAttribute("lastName", null);
+
+        // Autres attributs du modèle, si nécessaire
+        model.addAttribute("sex", null);
+        model.addAttribute("jobFunction", null);
+        model.addAttribute("hireDate", null);
+        model.addAttribute("departureDate", null);
 
         return "index";
     }
@@ -101,6 +109,12 @@ public class EmployeeController extends AuthenticatedController {
         model.addAttribute("employeeEntity", employeeEntity);
 
         return "employee/employeeProfile";
+    }
+
+    @GetMapping(value = "/employee/details")
+    public String getEmployeeDetails() {
+
+        return "employee/employeeDetails";
     }
 }
 
