@@ -7,35 +7,161 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<h2>Add Employee</h2>
-<form action="/addEmployee" method="POST" th:object="${newEmployee}" enctype="multipart/form-data"
-      class="needs-validation">
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/logo.png}" alt="" width="40" height="40" class="d-inline-block align-text-top">
+            Carlcare INC.
+        </a>
+        <div class="d-flex row">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/006/184/737/small/logout-sign-out-icon-in-line-style-vector.jpg" width="40" height="40"/>
+            <h5> Logout </h5>
+        </div>
+    </div>
+</nav>
 
-    <div class="mb-3 mt-5">
-        <label for="firstName" class="form-label">First name</label>
-        <input type="text" name="firstName" th:field="*{firstName}" class="form-control" id="firstName"
-               placeholder="Johnny">
-    </div>
-    <div class="mb-3">
-        <label for="lastName" class="form-label">Last name</label>
-        <input type="text" name="lastName" th:field="*{lastName}" class="form-control" id="lastName"
-               placeholder="Le pas" required>
-    </div>
-    <div class="mb-3">
-        <label for="birthDate" class="form-label">Birthdate</label>
-        <input type="date" name="birthDate" th:field="*{birthDate}" class="form-control" id="birthDate"
-               placeholder="12/12/12" required>
-    </div>
-    <div class="mb-3">
-        <label for="image" class="form-label">Profile pic</label>
-        <input type="file" class="form-control" id="image" name="image" th:field="*{profileImage}">
-    </div>
-    <div class="ml-4">
-        <button class="btn btn-primary" type="submit">Enregistrer</button>
-        <button class="btn btn-danger" type="button"><a href="/">Cancel</a></button>
-    </div>
-</form>
 
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                        <form action="/addEmployee" method="POST" th:object="${newEmployee}" enctype="multipart/form-data">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        <input type="text" id="firstName" class="form-control form-control-lg" name="firstName" th:field="*{firstName}" />
+                                        <label class="form-label    " for="firstName" >First Name</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        <input type="text" id="lastName" class="form-control form-control-lg" name="lastName" th:field="*{lastName}"
+                                               placeholder="Le pas" required />
+                                        <label class="form-label" for="lastName">Last Name</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                    <div class="form-outline datepicker w-100">
+                                        <input type="date" class="form-control form-control-lg"   name="birthDate" th:field="*{birthDate}" id="birthDate"
+                                               placeholder="12/12/12" required />
+                                        <label for="birthDate" class="form-label" >Birthday</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4 row">
+                                    <h6 class="mb-2 pb-1">Gender: </h6>
+                                    <select name="sex" id="gender" th:field="*{sex}">
+                                        <option value="F">Female</option>
+                                        <option value="M">Male</option>
+                                    </select>
+                                </div>
+
+                            <div class="row" >
+                                <div class="col-md-6 mb-4 pb-2">
+
+                                    <div class="form-outline">
+                                        <input type="email" id="workMail" class="form-control form-control-lg" name="workMail" th:field="*{workMail}"  />
+                                        <label class="form-label" for="workMail">workMail</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+
+                                    <div class="form-outline">
+                                        <input type="email" id="personnalmail" class="form-control form-control-lg" name="personalEmail" th:field="*{personalMail}" />
+                                        <label class="form-label" for="personnalmail">personnalMail</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4 pb-2">
+
+                                    <div class="form-outline">
+                                        <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
+                                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="identityCardNumber">Identity Card Number:</label>
+                                    <input type="text" id="identityCardNumber" class="form-control" th:field="*{cardModel.cinNumber}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="identityCardDate">Identity Card Date:</label>
+                                    <input type="date" id="identityCardDate" class="form-control" th:field="*{cardModel.cinIssueDate}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="identityCardPlace">Identity Card Place:</label>
+                                    <input type="text" id="identityCardPlace" class="form-control" th:field="*{cardModel.cinIssuePlace}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jobFunction">Job Function:</label>
+                                    <input type="text" id="jobFunction" class="form-control" th:field="*{jobFunction}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="numberOfChildren">Number of Children:</label>
+                                    <input type="number" id="numberOfChildren" class="form-control" th:field="*{numberOfChildren}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hireDate">Hire Date:</label>
+                                    <input type="date" id="hireDate" class="form-control" th:field="*{hireDate}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="departureDate">Departure Date:</label>
+                                    <input type="date" id="departureDate" class="form-control" th:field="*{departureDate}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="socioProfessionalCategory">Socio-Professional Category:</label>
+                                    <select class="form-control" id="socioProfessionalCategory" th:field="*{socioProfessionalCategory}" required>
+                                        <option value="M1">M1</option>
+                                        <option value="M2">M2</option>
+                                        <option value="OS1">OS1</option>
+                                        <option value="OS2">OS2</option>
+                                        <option value="OS3">OS3</option>
+                                        <option value="OP1">OP1</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cnapsNumber">CNAPS Number:</label>
+                                    <input type="text" id="cnapsNumber" class="form-control" th:field="*{cnapsNumber}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Profile pic</label>
+                                    <input type="file" class="form-control" id="image" name="image" th:field="*{profileImage}">
+                                </div>
+                                <div class="ml-4">
+                                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                    <button class="btn btn-danger" type="button"><a href="/">Cancel</a></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>

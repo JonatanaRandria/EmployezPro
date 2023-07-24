@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page de connexion</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<form th:action="@{/login}" method="post" >
+    <div class="container bootstrap snippets bootdey">
+        <div class="lc-block col-md-4 col-md-offset-4 toggled" id="l-login">
+            <div class="lcb-float"><i class="fa fa-users"></i></div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="userName" th:field="${employee.userName}" required placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" th:field="${employee.password}" required placeholder="Password">
+            </div>
+            <div class="clearfix"></div>
+            <button type="submit" class="btn btn-block btn-primary btn-float mt-25" >
+                Sign In</button>
+            <ul class="login-navigation">
+                <li data-block="#l-register" class="bg-green">Register</li>
+                <li data-block="#l-forget-password" class="bg-orange">Forgot Password?</li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

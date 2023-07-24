@@ -1,6 +1,18 @@
 package com.hei.project2p1.controller.model;
 
-import lombok.*;
+import com.hei.project2p1.model.PhoneEntity;
+import com.hei.project2p1.model.utils.SocialCategory;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Type;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
@@ -13,22 +25,37 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeModel {
+
     private String firstName;
     private String lastName;
-    private String birthDate;
+    private LocalDate birthDate;
     private MultipartFile profileImage;
-    private String sex;
-    private List<String> phoneNumbers;
+
+    @Column(name = "\"sex\"")
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
+
+    @Column(unique = true)
+    private List<PhoneEntity> phoneNumbers;
+
     private String address;
-    private String personalEmail;
-    private String workEmail;
-    private String cinNumber;
-    private LocalDate cinIssueDate;
-    private String cinIssuePlace;
+    private String personalMail;
+    private String workMail;
+    private IdentityCardModel cardModel;
     private String jobFunction;
     private int numberOfChildren;
     private LocalDate hireDate;
     private LocalDate departureDate;
-    private String socioProfessionalCategory;
+
+    @Enumerated(EnumType.STRING)
+    private SocialCategory socioProfessionalCategory;
     private String cnapsNumber;
+
+    public enum Sex {
+       M,F
+    }
+
+    public enum Category{
+        M1, M2, OS1, OS2, OS3, OP1
+    }
 }
