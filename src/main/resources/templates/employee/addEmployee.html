@@ -89,10 +89,16 @@
                                 </div>
 
                                 <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="tel" id="phoneNumber" th:field="*{phoneNumbers}" class="form-control form-control-lg" />
+                                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
 
                                     <div class="form-outline">
-                                        <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
-                                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                                        <input type="text" id="address" class="form-control form-control-lg" name="personalEmail" th:field="*{address}" />
+                                        <label class="form-label" for="address">Address</label>
                                     </div>
 
                                 </div>

@@ -14,10 +14,10 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
 
     @Query("SELECT e FROM EmployeeEntity e " +
-            "WHERE (:firstName IS NULL OR e.firstName LIKE %:firstName%) " +
-            "AND (:lastName IS NULL OR e.lastName LIKE %:lastName%) " +
+            "WHERE (:firstName IS NULL OR e.firstName LIKE LOWER(CONCAT('%', :firstName, '%'))) " +
+            "AND (:lastName IS NULL OR e.lastName LIKE LOWER(CONCAT('%', :lastName, '%'))) " +
             "AND (:sex IS NULL OR e.sex = :sex) " +
-            "AND (:jobFunction IS NULL OR e.jobFunction LIKE %:jobFunction%) " +
+            "AND (:jobFunction IS NULL OR e.jobFunction LIKE LOWER(CONCAT('%', :jobFunction, '%'))) " +
             "AND (:startDate IS NULL OR e.hireDate >= :startDate) " +
             "AND (:endDate IS NULL OR e.departureDate <= :endDate)"+
             "ORDER BY " +
