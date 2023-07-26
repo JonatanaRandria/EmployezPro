@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Employee  profile</title>
+    <link rel="stylesheet" th:href="@{/css/employee.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -19,22 +20,149 @@
         </div>
     </div>
 </nav>
-<div class="card position-absolute top-50 start-50 translate-middle text-align-center p-auto position-absolute top-50 start-50 translate-middle" style="width: 18rem;">
-        <span th:if="${employeeEntity.profileImage== null}">Aucune photo</span>
-        <span th:unless="${employeeEntity.profileImage== null}">
-             <img th:src="'data:image/jpeg;base64,' + ${employeeEntity.profileImage}" class="w-75 h-75 rounded border"  alt="image" src="">
-        </span>
-    <div class="card-body">
-        <h5 class="card-title">
-            <p th:text="${employeeEntity.firstName}"></p>
-        </h5>
-        <div>
-            <p  class="card-text" th:text="${employeeEntity.lastName}"></p>
-            <p th:text="${employeeEntity.birthDate}"></p>
-        </div>
+<h4> Edit employee</h4>
+<div class="container">
+    <form  action="/employee/{id}/edit" method="POST" enctype="multipart/form-data">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img  th:src="'data:image/jpeg;base64,' + ${employeeEntity.profileImage}" alt="Employee Image" />
+                                </div>
+                                <h5 class="user-name" th:text="*{employeeEntity.firstName}"></h5>
+                                <h6 class="user-email" th:text="*{employeeEntity.personalMail}"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
 
-        <button class="btn btn-danger" type="button"><a href="/">Return to List</a></button>
-    </div>
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="firstName">Firstname</label>
+                                    <p th:text="*{employeeEntity.firstName}" id="firstName"  ></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">Lastname</label>
+                                    <p id="fullName" th:text="*{employeeEntity.lastName}"></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="workMail">work Mail</label>
+                                    <p th:text="*{employeeEntity.workMail}"  class="form-control" id="workMail" ></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="personalEmail">personal mail</label>
+                                    <p th:text="*{employeeEntity.personalMail}"  id="personalEmail" ></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="phone">Phone,you can add more address by ending with ","</label>
+                                    <p th:text="*{employeeEntity.phoneNumbers.get(0).getPhoneNumber()}" id="phone" ></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="website">Job  Function</label>
+                                    <p th:text="*{employeeEntity.jobFunction}" id="website"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <p th:text="*{employeeEntity.address}" id="address" ></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="children">Number of children</label>
+                                    <p th:text="*{employeeEntity.numberOfChildren}" id="children"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="hire">hire Date</label>
+                                <p th:text="*{employeeEntity.hireDate}" id="hire" ></p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="number">Identity card number</label>
+                                <p th:text="*{employeeEntity.identityCard.cinNumber}" id="number" ></p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="place">Identity card delivrate place</label>
+                                <p th:text="*{employeeEntity.identityCard.cinIssuePlace}" id="place" ></p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="date">Identity card delivrate date</label>
+                                <p th:text="*{employeeEntity.identityCard.cinIssueDate}" id="date" ></p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="departure">firing date</label>
+                                <p th:text="*{employeeEntity.departureDate}" id="departure"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gutters">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="">
+                                <label for="socioProfessionalCategory">Socio-Professional Category:</label>
+                                <p class="" id="socioProfessionalCategory" th:text="*{employeeEntity.socioProfessionalCategory}" required>
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="category">CNAPS Number</label>
+                                <p th:text="*{employeeEntity.cnapsNumber}" id="category" ></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gutters">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="text-right">
+                                <button type="button" id="cancel" name="submit" class="btn btn-secondary">
+                                    <a href="/" >Cancel</a>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 </div>
 
 

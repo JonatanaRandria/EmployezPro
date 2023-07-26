@@ -48,10 +48,10 @@ public class EmployeeEntity implements Serializable  {
     private List<PhoneEntity> phoneNumbers;
 
     private String address;
-    @Column(name = "work_email")
+    @Column(name = "work_mail")
     private String workMail;
 
-    @Column(name = "personal_email")
+    @Column(name = "personal_mail")
     private String personalMail;
 
 

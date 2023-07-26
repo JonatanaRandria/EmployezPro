@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import java.util.List;
 
+import com.hei.project2p1.controller.model.View.EmployeeView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,13 +51,13 @@ public class EmployeeController {
     @GetMapping(value = "/employee/{id}/edit")
     public String UpdateEmployee(@PathVariable Long id, Model model) {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
-
-        model.addAttribute("employeeEntity", employeeEntity);
+        EmployeeView employeeView =  employeeMapper.toView(employeeEntity);
+        model.addAttribute("employeeEntity", employeeView);
         return "employee/employeeDetails";
     }
     @PostMapping(value = "/employee/{id}/edit")
-    public String UpdateEmployeeById(@PathVariable Long id,@ModelAttribute("employeeEntity")EmployeeModel employeeEntity) {
-        employeeService.updateEmployee(id,employeeMapper.toDomain(employeeEntity));
+    public String UpdateEmployeeById(@PathVariable Long id,@ModelAttribute("employeeEntity")EmployeeModel employeeEntity) throws IOException {
+        employeeService.updateEmployee(id,employeeEntity);
         return "redirect:/employee/"+id;
     }
 
