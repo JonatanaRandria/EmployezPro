@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -67,4 +69,10 @@ public class EmployeeEntity implements Serializable  {
     private SocialCategory socioProfessionalCategory;
     private String cnapsNumber;
 
+    @PrePersist
+    public void generateCustomMatriculate() {
+        if (ref == null) {
+            ref = String.format("Employee-ref-%s", Instant.now().toEpochMilli());
+        }
+    }
 }
