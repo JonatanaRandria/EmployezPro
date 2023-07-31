@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.hei.project2p1.controller.model.View.EmployeeView;
+import com.hei.project2p1.controller.utils.CompanyInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,6 +121,15 @@ public class EmployeeController {
         model.addAttribute("employeeEntity", employeeEntity);
 
         return "employee/employeeProfile";
+    }
+
+    @GetMapping(value = "/about")
+    public String getCompanyInformatoion(Model model) {
+
+
+        model.addAttribute("company",new CompanyInfo());
+
+        return "about";
     }
 
 
