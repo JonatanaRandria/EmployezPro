@@ -79,6 +79,7 @@ public class EmployeeController {
     @GetMapping({ "/employee", "/" })
     public String index(Model model,
         @RequestParam(value= "lastName", required = false) String lastName,
+        @RequestParam(value= "code", required = false) String code,
         @RequestParam(value= "firstName", required = false) String firstName,
         @RequestParam(value= "jobFunction", required = false) String jobFunction,
         @RequestParam(value= "sex", required = false) String sex,
@@ -91,7 +92,7 @@ public class EmployeeController {
         LocalDate fired = (departure != null && !departure.isEmpty()) ? LocalDate.parse(departure) : null;
 
 
-            List<EmployeeEntity> employeeEntities = employeeService.getFilteredEmployees(firstName,lastName,jobFunction,hire,fired,sex,sortBy,sortOrder);
+            List<EmployeeEntity> employeeEntities = employeeService.getFilteredEmployees(firstName,lastName,jobFunction,code,hire,fired,sex,sortBy,sortOrder);
             model.addAttribute("employeeEntities", employeeEntities);
 
 
@@ -99,6 +100,7 @@ public class EmployeeController {
         model.addAttribute("employeeEntities", employeeEntities);
         model.addAttribute("firstName", null);
         model.addAttribute("lastName", null);
+        model.addAttribute("code", null);
 
         // Autres attributs du modèle, si nécessaire
         model.addAttribute("sex", null);
