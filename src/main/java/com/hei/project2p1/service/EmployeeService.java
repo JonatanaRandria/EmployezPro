@@ -42,34 +42,8 @@ public class EmployeeService {
         return employeeRepository.getById(id);
     }
     public void updateEmployee(Long id, EmployeeModel updatedEmployee) throws IOException {
-        EmployeeEntity existingEmployee = getEmployeeById(id);
-
-// Convert List<String> to List<Phone>
-
-      PhoneEntity phoneEntity=  phoneService.save(phoneMapper.toDomain(updatedEmployee.getPhoneNumbers()));
-
-        MultipartFile imageFile = updatedEmployee.getProfileImage();
-            // Get the image file content as a byte array
-            byte[] imageBytes = imageFile.getBytes();
-
-            // Convert the byte array to a Base64 string
-            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-        // Update the fields of the existing employee with the values from the updatedEmployee
-        existingEmployee.setFirstName(updatedEmployee.getFirstName());
-        existingEmployee.setLastName(updatedEmployee.getLastName());
-        existingEmployee.setBirthDate(updatedEmployee.getBirthDate());
-        existingEmployee.setProfileImage(base64Image);
-        existingEmployee.setSex(String.valueOf(updatedEmployee.getSex()));
-        existingEmployee.setPhoneNumbers(List.of(phoneEntity));
-        existingEmployee.setAddress(updatedEmployee.getAddress());
-        existingEmployee.setWorkMail(updatedEmployee.getWorkMail());
-        existingEmployee.setPersonalMail(updatedEmployee.getPersonalMail());
-        existingEmployee.setJobFunction(updatedEmployee.getJobFunction());
-        existingEmployee.setNumberOfChildren(updatedEmployee.getNumberOfChildren());
-        existingEmployee.setHireDate(updatedEmployee.getHireDate());
-        existingEmployee.setDepartureDate(updatedEmployee.getDepartureDate());
-        existingEmployee.setSocioProfessionalCategory(updatedEmployee.getSocioProfessionalCategory());
-        existingEmployee.setCnapsNumber(updatedEmployee.getCnapsNumber());
+        EmployeeEntity existingEmployee = employeeMapper.toDomain(updatedEmployee);
+        existingEmployee.setId(id);
         employeeRepository.save(existingEmployee);
     }
 }

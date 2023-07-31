@@ -52,11 +52,11 @@ public class EmployeeController {
     public String UpdateEmployee(@PathVariable Long id, Model model) {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
         EmployeeView employeeView =  employeeMapper.toView(employeeEntity);
-        model.addAttribute("employeeEntity", employeeView);
+        model.addAttribute("employeeEntity", employeeE);
         return "employee/employeeDetails";
     }
     @PostMapping(value = "/employee/{id}/edit")
-    public String UpdateEmployeeById(@PathVariable Long id,@ModelAttribute("employeeEntity")EmployeeModel employeeEntity) throws IOException {
+    public String UpdateEmployeeById(@PathVariable Long id,@ModelAttribute EmployeeModel employeeEntity) throws IOException {
         employeeService.updateEmployee(id,employeeEntity);
         return "redirect:/employee/"+id;
     }

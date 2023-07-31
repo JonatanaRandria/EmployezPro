@@ -22,7 +22,7 @@
 </nav>
 <h4> Edit employee</h4>
 <div class="container">
-  <form  action="/employee/{id}/edit" method="POST" enctype="multipart/form-data">
+  <form  th:action="@{'/employee/'+${employeeEntity.id}+'/edit'}" method="POST" enctype="multipart/form-data">
   <div class="row gutters">
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
       <div class="card h-100">
@@ -53,37 +53,56 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="firstName">Firstname</label>
-                <input type="text" class="form-control" th:value="*{employeeEntity.firstName}" id="firstName"  placeholder="Enter firstName">
+                <input type="text" class="form-control" name="firstName" th:value="*{employeeEntity.firstName}" id="firstName"  placeholder="Enter firstName">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="fullName">Lastname</label>
-                <input type="text" class="form-control" id="fullName" th:value="*{employeeEntity.lastName}" placeholder="Enter full name">
+                <input type="text" class="form-control" id="fullName" name="lastName" th:value="*{employeeEntity.lastName}" placeholder="Enter full name">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="workMail">work Mail</label>
-                <input type="email" th:value="*{employeeEntity.workMail}"  class="form-control" id="workMail" placeholder="Enter your work mail">
+                <input type="email" th:value="*{employeeEntity.workMail}"  name="workMail" class="form-control" id="workMail" placeholder="Enter your work mail">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
+                <label for="nicNumber">Identity Card N°:</label>
+                <input type="number" th:value="*{employeeEntity.cinNumber}"  name="cinNumber" class="form-control" id="nicNumber" placeholder="Enter your work mail">
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="nicDate">Identity Card deliver Date</label>
+                <input type="date" th:value="*{employeeEntity.cinDate}"  name="cinNumber" class="form-control" id="nicDate" placeholder="Enter your work mail">
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="nicPlace">Identity Card deliver Place</label>
+                <input type="date" th:value="*{employeeEntity.cinPlace}"  name="cinNumber" class="form-control" id="nicPlace" placeholder="Enter your work mail">
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
                 <label for="personalEmail">personal mail</label>
-                <input type="email" th:value="*{employeeEntity.personalMail}" class="form-control" id="personalEmail" placeholder="Enter personnal Email">
+                <input type="email" th:value="*{employeeEntity.personalMail}" name="personalMail" class="form-control" id="personalEmail" placeholder="Enter personnal Email">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="phone">Phone,you can add more address by ending with ","</label>
-                <input type="text" class="form-control" th:value="*{employeeEntity.phoneNumbers}" id="phone" placeholder="Enter phone number">
+                <input type="text" class="form-control" th:value="*{employeeEntity.phoneNumbers}" name="phoneNumbers" id="phone" placeholder="Enter phone number">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="website">Job  Function</label>
-                <input type="text" class="form-control" th:value="*{employeeEntity.jobFunction}" id="website" placeholder="employee job">
+                <input type="text" class="form-control" th:value="*{employeeEntity.jobFunction}" name="jobFunction" id="website" placeholder="employee job">
               </div>
             </div>
           </div>
@@ -91,13 +110,13 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" th:value="*{employeeEntity.address}" id="address" placeholder="Enter Street">
+                <input type="text" class="form-control" th:value="*{employeeEntity.address}" name="address" id="address" placeholder="Enter Street">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="children">Number of children</label>
-                <input type="number" class="form-control" th:value="*{employeeEntity.numberOfChildren}" id="children" placeholder="Enter Street">
+                <input type="number" class="form-control" th:value="*{employeeEntity.numberOfChildren}" name="numberOfChildren" id="children" placeholder="Enter Street">
               </div>
             </div>
           </div>
@@ -105,7 +124,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="hire">hire Date</label>
-                <input type="date" class="form-control" th:value="*{employeeEntity.hireDate}" id="hire" placeholder="Enter Street">
+                <input type="date" class="form-control" th:value="*{employeeEntity.hireDate}" name="hireDate" id="hire" placeholder="Enter Street">
               </div>
             </div>
 
@@ -114,7 +133,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="departure">firing date</label>
-                <input type="date" class="form-control" th:value="*{employeeEntity.departureDate}" id="departure" placeholder="Enter Street">
+                <input type="date" class="form-control" th:value="*{employeeEntity.departureDate}" name="departureDate" id="departure" placeholder="Enter Street">
               </div>
             </div>
           </div>
@@ -122,7 +141,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="socioProfessionalCategory">Socio-Professional Category:</label>
-                <select class="form-control" id="socioProfessionalCategory" th:field="*{employeeEntity.socioProfessionalCategory}" required>
+                <select class="form-control" id="socioProfessionalCategory" name="socioProfessionalCategory" th:field="*{employeeEntity.socioProfessionalCategory}" required>
                   <option value="M1">M1</option>
                   <option value="M2">M2</option>
                   <option value="OS1">OS1</option>
@@ -135,7 +154,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="category">CNAPS Number</label>
-                <input type="text" class="form-control" th:value="*{employeeEntity.cnapsNumber}" id="category" placeholder="Enter Street">
+                <input type="text" class="form-control" th:value="*{employeeEntity.cnapsNumber}" name="cnapsNumber" id="category" placeholder="Enter Street">
               </div>
             </div>
           </div>

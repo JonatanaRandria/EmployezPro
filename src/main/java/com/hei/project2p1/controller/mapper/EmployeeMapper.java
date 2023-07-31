@@ -61,6 +61,7 @@ public class EmployeeMapper {
     public EmployeeView toView(EmployeeEntity employeeEntity){
 
         return EmployeeView.builder()
+                .id(employeeEntity.getId())
                 .cinDate(employeeEntity.getIdentityCard().getCinIssueDate())
                 .cinPlace(employeeEntity.getIdentityCard().getCinIssuePlace())
                 .cinNumber(employeeEntity.getIdentityCard().getCinNumber())

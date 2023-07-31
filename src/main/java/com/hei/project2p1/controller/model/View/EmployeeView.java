@@ -22,6 +22,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeView {
+    private Long id;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
