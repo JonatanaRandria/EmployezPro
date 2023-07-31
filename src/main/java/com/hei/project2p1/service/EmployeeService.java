@@ -10,6 +10,7 @@ import com.hei.project2p1.model.PhoneEntity;
 import com.hei.project2p1.model.utils.Sex;
 import com.hei.project2p1.repository.EmployeeRepository;
 import com.hei.project2p1.repository.PhoneRepository;
+import com.hei.project2p1.repository.dao.EmployeeDao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,11 +31,12 @@ public class EmployeeService {
     EmployeeMapper employeeMapper;
     PhoneMapper phoneMapper;
     PhoneService phoneService;
+    EmployeeDao employeeDao;
     public List<EmployeeEntity> getEmployees() {
      return  employeeRepository.findAll();
     }
-    public List<EmployeeEntity> getFilteredEmployees(String firstName, String lastName, String jobFunction, LocalDate entrance, LocalDate departure, String sex,String sortBy,String sortOrder){
-    return employeeRepository.findByAllFilters(firstName,lastName,sex,jobFunction,entrance,departure,sortBy,sortOrder);
+    public List<EmployeeEntity> getFilteredEmployees(String firstName, String lastName, String jobFunction,String code, LocalDate entrance, LocalDate departure, String sex,String sortBy,String sortOrder){
+    return employeeDao.findByCriteriaNative(firstName,lastName,sex,jobFunction,code,entrance,departure,sortBy,sortOrder);
     }
     public void  saveEmployee(EmployeeEntity employeeEntity){
         employeeRepository.save(employeeEntity);

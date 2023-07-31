@@ -13,25 +13,9 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
 
-    @Query("SELECT e FROM EmployeeEntity e " +
-            "WHERE (:firstName IS NULL OR e.firstName LIKE LOWER(CONCAT('%', :firstName, '%'))) " +
-            "AND (:lastName IS NULL OR e.lastName LIKE LOWER(CONCAT('%', :lastName, '%'))) " +
-            "AND (:sex IS NULL OR e.sex = :sex) " +
-            "AND (:jobFunction IS NULL OR e.jobFunction LIKE LOWER(CONCAT('%', :jobFunction, '%'))) " +
-            "AND (:startDate IS NULL OR e.hireDate >= :startDate) " +
-            "AND (:endDate IS NULL OR e.departureDate <= :endDate)"+
-            "ORDER BY " +
-            "CASE WHEN :sortBy = 'firstName' AND :sortOrder = 'asc' THEN e.firstName END ASC, " +
-            "CASE WHEN :sortBy = 'firstName' AND :sortOrder = 'desc' THEN e.firstName END DESC, " +
-            "CASE WHEN :sortBy = 'lastName' AND :sortOrder = 'asc' THEN e.lastName END ASC, " +
-            "CASE WHEN :sortBy = 'lastName' AND :sortOrder = 'desc' THEN e.lastName END DESC, " +
-            "CASE WHEN :sortBy = 'sex' AND :sortOrder = 'asc' THEN e.sex END ASC, " +
-            "CASE WHEN :sortBy = 'sex' AND :sortOrder = 'desc' THEN e.sex END DESC, " +
-            "CASE WHEN :sortBy = 'jobFunction' AND :sortOrder = 'asc' THEN e.jobFunction END ASC, " +
-            "CASE WHEN :sortBy = 'jobFunction' AND :sortOrder = 'desc' THEN e.jobFunction END DESC")
-    List<EmployeeEntity> findByAllFilters(String firstName, String lastName, String sex,
-                                          String jobFunction,
-                                          LocalDate startDate, LocalDate endDate,
-                                          String sortBy,
-                                          String sortOrder);
+    @Query(value = "SELECT * FROM employee " +
+            "WHERE (:firstName IS NULL OR firstName LIKE CONCAT('%', :firstName, '%')) " +
+            "AND (:lastName IS NULL OR lastName LIKE CONCAT('%', :lastName, '%'))",
+            nativeQuery = true)
+    List<EmployeeEntity> findByAllFilters(String firstName, String lastName);
 }
