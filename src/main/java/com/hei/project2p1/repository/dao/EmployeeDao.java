@@ -47,7 +47,7 @@ public class EmployeeDao {
         }
 
         if (code != null && !code.isEmpty()) {
-            query.append("AND p.code = :code ");
+            query.append("AND p.phone_number LIKE CONCAT(:code,'%')");
         }
 
         if (startedAt != null && departedAt != null) {
