@@ -4,6 +4,7 @@ import com.hei.project2p1.controller.mapper.EmployeeMapper;
 import com.hei.project2p1.controller.mapper.IdentityCardMapper;
 import com.hei.project2p1.controller.mapper.PhoneMapper;
 import com.hei.project2p1.controller.model.EmployeeModel;
+import com.hei.project2p1.controller.model.View.EmployeeView;
 import com.hei.project2p1.model.EmployeeEntity;
 import com.hei.project2p1.model.PhoneEntity;
 import com.hei.project2p1.model.utils.Sex;
@@ -42,8 +43,8 @@ public class EmployeeService {
         return employeeRepository.getById(id);
     }
     public void updateEmployee(Long id, EmployeeModel updatedEmployee) throws IOException {
-        EmployeeEntity existingEmployee = employeeMapper.toDomain(updatedEmployee);
-        existingEmployee.setId(id);
-        employeeRepository.save(existingEmployee);
+       EmployeeEntity employeeEntity= employeeMapper.toDomain(updatedEmployee);
+       employeeEntity.setId(id);
+       saveEmployee(employeeEntity);
     }
 }

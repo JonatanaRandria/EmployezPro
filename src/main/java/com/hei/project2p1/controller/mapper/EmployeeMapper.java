@@ -1,6 +1,7 @@
 package com.hei.project2p1.controller.mapper;
 
 import com.hei.project2p1.controller.model.EmployeeModel;
+import com.hei.project2p1.controller.model.IdentityCardModel;
 import com.hei.project2p1.controller.model.View.EmployeeView;
 import com.hei.project2p1.model.EmployeeEntity;
 import com.hei.project2p1.model.IdentityCardEntity;
@@ -62,14 +63,11 @@ public class EmployeeMapper {
 
         return EmployeeView.builder()
                 .id(employeeEntity.getId())
-                .cinDate(employeeEntity.getIdentityCard().getCinIssueDate())
-                .cinPlace(employeeEntity.getIdentityCard().getCinIssuePlace())
-                .cinNumber(employeeEntity.getIdentityCard().getCinNumber())
+                .cardModel(identityCardMapper.toView(employeeEntity.getIdentityCard()))
                 .sex(EmployeeModel.Sex.valueOf(employeeEntity.getSex()))
                 .firstName(employeeEntity.getFirstName())
                 .address(employeeEntity.getAddress())
                 .hireDate(employeeEntity.getHireDate())
-                .profileImage(employeeEntity.getProfileImage())
                 .lastName(employeeEntity.getLastName())
                 .sex(EmployeeModel.Sex.valueOf(employeeEntity.getSex()))
                 .jobFunction(employeeEntity.getJobFunction())
@@ -83,5 +81,27 @@ public class EmployeeMapper {
                 .numberOfChildren(employeeEntity.getNumberOfChildren())
                 .build();
     }
+
+    public EmployeeEntity toRest(EmployeeView employeeView){
+        return EmployeeEntity.builder()
+                .Id(employeeView.getId())
+                .firstName(employeeView.getFirstName())
+                .lastName(employeeView.getLastName())
+                .address(employeeView.getAddress())
+                .numberOfChildren(employeeView.getNumberOfChildren())
+                .identityCard(identityCardMapper.toDomain(employeeView.getCardModel()))
+                .birthDate(employeeView.getBirthDate())
+                .jobFunction(employeeView.getJobFunction())
+                .sex(String.valueOf(employeeView.getSex()))
+                .workMail(employeeView.getWorkMail())
+                .personalMail(employeeView.getPersonalMail())
+                .hireDate(employeeView.getHireDate())
+                .departureDate(employeeView.getDepartureDate())
+                .cnapsNumber(employeeView.getCnapsNumber())
+                .socioProfessionalCategory(employeeView.getSocioProfessionalCategory())
+                .ref(employeeView.getRef())
+                .build();
+    }
+
 
 }

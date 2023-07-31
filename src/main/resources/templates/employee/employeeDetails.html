@@ -63,6 +63,13 @@
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <h6 class="mb-2 pb-1">Gender: </h6>
+              <select name="sex" id="gender" th:field="*{employeeEntity.sex}">
+                <option value="F">Female</option>
+                <option value="M">Male</option>
+              </select>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="workMail">work Mail</label>
                 <input type="email" th:value="*{employeeEntity.workMail}"  name="workMail" class="form-control" id="workMail" placeholder="Enter your work mail">
@@ -71,19 +78,19 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="nicNumber">Identity Card N°:</label>
-                <input type="number" th:value="*{employeeEntity.cinNumber}"  name="cinNumber" class="form-control" id="nicNumber" placeholder="Enter your work mail">
+                <input type="number" th:value="*{employeeEntity.cardModel.cinNumber}" th:field="*{employeeEntity.cardModel.cinNumber}"  name="cinNumber" class="form-control" id="nicNumber" placeholder="Enter your work mail">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="nicDate">Identity Card deliver Date</label>
-                <input type="date" th:value="*{employeeEntity.cinDate}"  name="cinNumber" class="form-control" id="nicDate" placeholder="Enter your work mail">
+                <input type="date" th:value="*{employeeEntity.cardModel.cinIssueDate}"  th:field="*{employeeEntity.cardModel.cinIssueDate}"  name="cinDate" class="form-control" id="nicDate" placeholder="Enter your work mail">
               </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="form-group">
                 <label for="nicPlace">Identity Card deliver Place</label>
-                <input type="date" th:value="*{employeeEntity.cinPlace}"  name="cinNumber" class="form-control" id="nicPlace" placeholder="Enter your work mail">
+                <input type="text" th:value="*{employeeEntity.cardModel.cinIssuePlace}" th:field="*{employeeEntity.cardModel.cinIssuePlace}"  name="cinPlace" class="form-control" id="nicPlace" placeholder="Enter your work mail">
               </div>
             </div>
 

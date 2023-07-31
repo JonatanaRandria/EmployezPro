@@ -26,8 +26,8 @@ public class EmployeeView {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private String profileImage;
-
+    private MultipartFile profileImage;
+    private String ref;
     @Column(name = "\"sex\"")
     @Enumerated(EnumType.STRING)
     private com.hei.project2p1.controller.model.EmployeeModel.Sex sex;
@@ -37,9 +37,7 @@ public class EmployeeView {
     private String address;
     private String personalMail;
     private String workMail;
-    private String cinNumber;
-    private String cinPlace;
-    private LocalDate cinDate;
+    private IdentityCardModel cardModel;
     private String jobFunction;
     private int numberOfChildren;
     private LocalDate hireDate;
