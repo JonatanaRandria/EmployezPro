@@ -18,4 +18,6 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
             "AND (:lastName IS NULL OR lastName LIKE CONCAT('%', :lastName, '%'))",
             nativeQuery = true)
     List<EmployeeEntity> findByAllFilters(String firstName, String lastName);
+
+    EmployeeEntity findByRef(String ref);
 }

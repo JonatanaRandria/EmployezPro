@@ -44,7 +44,11 @@ public class EmployeeService {
     public EmployeeEntity getEmployeeById(Long id){
         return employeeRepository.getById(id);
     }
+    public EmployeeEntity getEmployeeByRef(String ref){
+        return employeeRepository.findByRef(ref);
+    }
     public void updateEmployee(Long id, EmployeeModel updatedEmployee) throws IOException {
+
        EmployeeEntity employeeEntity= employeeMapper.toDomain(updatedEmployee);
        employeeEntity.setId(id);
        saveEmployee(employeeEntity);

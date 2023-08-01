@@ -34,7 +34,7 @@ public class EmployeeModel {
     @Column(name = "\"sex\"")
     @Enumerated(EnumType.STRING)
     private Sex sex;
-
+    private String ref;
     private String phoneNumbers;
 
     private String address;

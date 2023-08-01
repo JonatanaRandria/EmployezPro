@@ -6,12 +6,14 @@ import com.hei.project2p1.controller.model.View.EmployeeView;
 import com.hei.project2p1.model.EmployeeEntity;
 import com.hei.project2p1.model.IdentityCardEntity;
 import com.hei.project2p1.model.PhoneEntity;
+import com.hei.project2p1.service.EmployeeService;
 import com.hei.project2p1.service.IdenityCardSerivce;
 import com.hei.project2p1.service.PhoneService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -24,6 +26,15 @@ public class EmployeeMapper {
     private final PhoneMapper phoneMapper;
     public EmployeeEntity toDomain(EmployeeModel employee){
         IdentityCardEntity identityCard = identityCardSerivce.saveCardIdentity(employee.getCardModel());
+
+        List<PhoneEntity> phoneEntities = new ArrayList<>();
+        if(employee.getPhoneNumbers().contains(",")){
+            String[] elements = employee.getPhoneNumbers().split(",");
+            for (String el : elements){
+
+             phoneEntities.add(phoneService.save(phoneMapper.toDomain(el)))  ;
+            }
+        }
         PhoneEntity phoneEntity = phoneService.save(phoneMapper.toDomain(employee.getPhoneNumbers()));
         EmployeeEntity domainEmployeeEntity = EmployeeEntity.builder()
                 .firstName(employee.getFirstName())
@@ -35,13 +46,15 @@ public class EmployeeMapper {
                 .jobFunction(employee.getJobFunction())
                 .numberOfChildren(employee.getNumberOfChildren())
                 .sex(employee.getSex().toString())
-                .phoneNumbers(List.of(phoneEntity))
+                .phoneNumbers(phoneEntities.size()>0 ? phoneEntities : List.of(phoneEntity))
                 .hireDate(employee.getHireDate())
                 .departureDate(employee.getDepartureDate())
                 .identityCard(identityCard)
                 .socioProfessionalCategory(employee.getSocioProfessionalCategory())
                 .cnapsNumber(employee.getCnapsNumber())
                 .build();
+
+
         try {
             MultipartFile imageFile = employee.getProfileImage();
             if (imageFile != null && !imageFile.isEmpty()) {
@@ -68,6 +81,7 @@ public class EmployeeMapper {
                 .firstName(employeeEntity.getFirstName())
                 .address(employeeEntity.getAddress())
                 .hireDate(employeeEntity.getHireDate())
+                .ref(employeeEntity.getRef())
                 .lastName(employeeEntity.getLastName())
                 .sex(EmployeeModel.Sex.valueOf(employeeEntity.getSex()))
                 .jobFunction(employeeEntity.getJobFunction())
