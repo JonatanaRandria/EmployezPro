@@ -8,9 +8,11 @@ import java.util.List;
 
 import com.hei.project2p1.controller.model.View.EmployeeView;
 import com.hei.project2p1.controller.utils.CompanyInfo;
+import com.hei.project2p1.model.validator.PhoneValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.*;
 
 import com.hei.project2p1.controller.mapper.EmployeeMapper;
@@ -34,6 +36,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeMapper  employeeMapper;
     private final UserService     userService;
+    private final PhoneValidator phoneValidator;
 
     @PostMapping(value = "/login")
     public String Login(@ModelAttribute("employee") UserModel userModel, HttpSession response) {
@@ -50,6 +53,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employee/{id}/edit")
+
     public String UpdateEmployee(@PathVariable Long id, Model model) {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
         EmployeeView employeeView =  employeeMapper.toView(employeeEntity);
@@ -57,14 +61,18 @@ public class EmployeeController {
         return "employee/employeeDetails";
     }
     @PostMapping(value = "/employee/{id}/edit")
+    @ExceptionHandler(BindException.class)
     public String UpdateEmployeeById(@PathVariable Long id,@ModelAttribute EmployeeModel employeeEntity) throws IOException {
-        System.out.println(employeeEntity);
+        phoneValidator.accept(employeeEntity.getPhoneNumbers());
         employeeService.updateEmployee(id,employeeEntity);
         return "redirect:/employee/"+id;
     }
 
     @PostMapping("/addEmployee")
+
     public String addEmployee(@ModelAttribute("newEmployee") EmployeeModel employee) throws IOException {
+        phoneValidator.accept(employee.getPhoneNumbers());
+
         employeeService.saveEmployee(employeeMapper.toDomain(employee));
 
         return "redirect:/";
@@ -96,14 +104,11 @@ public class EmployeeController {
             List<EmployeeEntity> employeeEntities = employeeService.getFilteredEmployees(firstName,lastName,jobFunction,code,hire,fired,sex,sortBy,sortOrder);
             model.addAttribute("employeeEntities", employeeEntities);
 
-
-
         model.addAttribute("employeeEntities", employeeEntities);
         model.addAttribute("firstName", null);
         model.addAttribute("lastName", null);
         model.addAttribute("code", null);
 
-        // Autres attributs du modèle, si nécessaire
         model.addAttribute("sex", null);
         model.addAttribute("jobFunction", null);
         model.addAttribute("hireDate", null);
@@ -125,8 +130,6 @@ public class EmployeeController {
 
     @GetMapping(value = "/about")
     public String getCompanyInformatoion(Model model) {
-
-
         model.addAttribute("company",new CompanyInfo());
 
         return "about";

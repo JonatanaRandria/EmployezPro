@@ -15,42 +15,54 @@
 <button class="btn btn-info my-4" type="button"><a href="/addEmployee">Add new employeeEntity</a></button></a>
 <table th:switch="${#lists.size(employeeEntities)}" class="table table-bordered table-striped" id="employeeTable">
          <span th:case="0">
-         we have no employeeEntities
+         we have no employees
          </span>
     <span th:case="*">
             <div>
                <form th:action="@{/employee}" id="employeeForm"  method="get">
+                   <label for="criteria">Sort Criteria</label>
                      <select id="criteria" class="form-select" aria-label="Default select example" name="sortBy" th:value="${criteria}"  >
                         <option value="null" selected>not specified</option>
-                        <option value="firstName">firstName</option>
-                        <option value="lastName">lastName</option>
+                        <option value="first_name">first_name</option>
+                        <option value="last_name">last_name</option>
                         <option value="sex">Sex</option>
-                        <option value="hireDate">hire Date</option>
-                        <option value="departureDate">departure Date </option>
-                        <option value="jobFunction">Job Function </option>
+                        <option value="hire_date">hire_date</option>
+                        <option value="departure_date">departure_date </option>
+                        <option value="job_function">job_function </option>
                      </select>
+                   <label for="sortOrder">Sort Order</label>
                      <select name="sortOrder" class="form-select" aria-label="Default select example" th:value="${sortOrder}" id="sortOrder">
                         <option value="null" selected>not specified</option>
                         <option value="ASC">ASC</option>
                         <option value="DESC">DESC</option>
                      </select>
-                  <label for="firstName"> firstName </label>
-                        <input type="text" name="firstName" id="firstName"  th:value="${firstName}" placeholder="search by firstNam">
+                  <label for="firstName"> Firstname </label>
+                        <input type="text" name="firstName" id="firstName" class="my-3"  th:value="${firstName}" placeholder="search by firstNam">
 
-                  <input type="text" name="code"  th:value="${code}" placeholder="search by code">
-                    <input type="text" name="lastName"  th:value="${lastName}" placeholder="search by lastName">
-                  <input type="text" name="jobFunction"  th:value="${jobFunction}" placeholder="search by Job Function">
-                  <input type="date" name="entrance"  th:value="${hireDate}" >
-                  <input type="date" name="departure"  th:value="${departureDate}">
-                  <select name="sex" th:value="${sex}"  id="sex">
+                  <label for="code"> Code </label>
+                        <input type="text" name="code" id="code"  th:value="${code}" placeholder="search by code">
+
+                   <label for="lastName"> Lastname</label>
+                        <input type="text" name="lastName" id="lastName" class="my-3"  th:value="${lastName}" placeholder="search by lastName">
+
+                  <label for="job"> Function </label>
+                    <input type="text" id="job" name="jobFunction" class="my-3"  th:value="${jobFunction}" placeholder="search by Job Function">
+
+                  <label for="hire"> hire Date </label>
+                        <input type="date" name="entrance" id="hire" class="my-3" th:value="${hireDate}" >
+
+                  <label for="fire" >fire Date </label>
+                        <input type="date" id="fire" name="departure" class="my-3"  th:value="${departureDate}">
+
+                  <label for="sex">Sex</label><select name="sex" class="my-3"  th:value="${sex}" id="sex">
                      <option value="null" id="not_specified">not specified</option>
                      <option value="M">M</option>
                      <option value="F">F</option>
                   </select>
                   <button type="submit" class="btn btn-info"   onclick="submitForm()" >Rechercher</button>
                </form>
-                <a id="exportLink" href="#" download="employee_list.csv" style="display: none;">Export CSV</a>
-                <button class="btn btn-info" onclick="exportToCSV()" >Export CSV</button>
+                <a id="exportLink" href="#" download="employee_list.csv" class="my-3" style="display: none;">Export CSV</a>
+                <button class="btn btn-info my-3" onclick="exportToCSV()">Export CSV</button>
             </div>
             <thead>
                <tr>

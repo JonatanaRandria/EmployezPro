@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "\"Phone\"")
@@ -30,8 +32,9 @@ public class PhoneEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @Column(unique = true)
+    @Size(min = 10,max = 10,message = "number must be at 10")
     private String phoneNumber;
-
+    private String code;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employee;

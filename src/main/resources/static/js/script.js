@@ -4,12 +4,14 @@ function redirectEmployee(id) {
 function redirectEmployeeToEdit(id) {
     return window.location.href = '/employee/' + id+'/edit';
 }
+
 function submitForm() {
     // Supprimer les champs de saisie dont la valeur est null avant de soumettre le formulaire
     const firstNameInput = document.querySelector('input[name="firstName"]');
     const lastNameInput = document.querySelector('input[name="lastName"]');
     const jobFunctionInput = document.querySelector('input[name="jobFunction"]');
     const entranceInput = document.querySelector('input[name="entrance"]');
+    const code = document.querySelector('input[name="code"]');
     const departureInput = document.querySelector('input[name="departure"]');
     const sexSelect = document.getElementById('sex');
     const sortSelect = document.getElementById('criteria');
@@ -39,6 +41,9 @@ function submitForm() {
 
     if (departureInput && departureInput.value === ''|| departureInput.value==="null") {
         departureInput.disabled = true;
+    }
+    if (code && code.value === ''|| code.value==="null") {
+        code.disabled = true;
     }
 
     if (sexSelect && sexSelect.value === '' || sexSelect.value==="null") {

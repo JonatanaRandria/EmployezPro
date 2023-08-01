@@ -47,7 +47,7 @@ public class EmployeeDao {
         }
 
         if (code != null && !code.isEmpty()) {
-            query.append("AND p.phone_number LIKE CONCAT(:code,'%')");
+            query.append("AND p.code LIKE CONCAT('+',:code) ");
         }
 
         if (startedAt != null && departedAt != null) {
@@ -88,8 +88,8 @@ public class EmployeeDao {
         }
 
         if (startedAt != null && departedAt != null) {
-            nativeQuery.setParameter("startedAt", startedAt);
-            nativeQuery.setParameter("departedAt", departedAt);
+            nativeQuery.setParameter("hire_date", startedAt);
+            nativeQuery.setParameter("departure_date", departedAt);
         }
 
         return nativeQuery.getResultList();
