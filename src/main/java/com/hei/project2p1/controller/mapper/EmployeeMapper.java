@@ -31,11 +31,10 @@ public class EmployeeMapper {
         if(employee.getPhoneNumbers().contains(",")){
             String[] elements = employee.getPhoneNumbers().split(",");
             for (String el : elements){
-
-             phoneEntities.add(phoneService.save(phoneMapper.toDomain(el)))  ;
+             phoneEntities.add(phoneService.save(phoneMapper.toDomain(el,employee.getCountryCode())))  ;
             }
         }
-        PhoneEntity phoneEntity = phoneService.save(phoneMapper.toDomain(employee.getPhoneNumbers()));
+        PhoneEntity phoneEntity = phoneService.save(phoneMapper.toDomain(employee.getPhoneNumbers(),employee.getCountryCode()));
         EmployeeEntity domainEmployeeEntity = EmployeeEntity.builder()
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
@@ -73,7 +72,7 @@ public class EmployeeMapper {
     }
 
     public EmployeeView toView(EmployeeEntity employeeEntity){
-
+            String countryCode = employeeEntity.getPhoneNumbers().get(0).getCode();
         return EmployeeView.builder()
                 .id(employeeEntity.getId())
                 .cardModel(identityCardMapper.toView(employeeEntity.getIdentityCard()))
@@ -88,7 +87,7 @@ public class EmployeeMapper {
                 .departureDate(employeeEntity.getDepartureDate())
                 .personalMail(employeeEntity.getPersonalMail())
                 .workMail(employeeEntity.getWorkMail())
-                .phoneNumbers(employeeEntity.getPhoneNumbers().get(0).getPhoneNumber())
+                .phoneNumbers(employeeEntity.getPhoneNumbers().stream().map(phoneMapper::toView).toList())
                 .birthDate(employeeEntity.getBirthDate())
                 .cnapsNumber(employeeEntity.getCnapsNumber())
                 .socioProfessionalCategory(employeeEntity.getSocioProfessionalCategory())

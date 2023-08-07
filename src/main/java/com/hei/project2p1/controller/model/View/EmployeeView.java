@@ -14,6 +14,7 @@ import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,7 +33,7 @@ public class EmployeeView {
     @Enumerated(EnumType.STRING)
     private com.hei.project2p1.controller.model.EmployeeModel.Sex sex;
 
-    private String phoneNumbers;
+    private List<String> phoneNumbers;
 
     private String address;
     private String personalMail;

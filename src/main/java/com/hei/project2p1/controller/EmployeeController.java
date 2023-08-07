@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.hei.project2p1.controller.model.View.EmployeeView;
 import com.hei.project2p1.controller.utils.CompanyInfo;
+import com.hei.project2p1.controller.utils.CountryCode;
 import com.hei.project2p1.model.validator.PhoneValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -53,25 +54,25 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employee/{id}/edit")
-
     public String UpdateEmployee(@PathVariable Long id, Model model) {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
         EmployeeView employeeView =  employeeMapper.toView(employeeEntity);
         model.addAttribute("employeeEntity", employeeView);
+        model.addAttribute("countryCode", CountryCode.getCountryCodes());
         return "employee/employeeDetails";
     }
     @PostMapping(value = "/employee/{id}/edit")
     @ExceptionHandler(BindException.class)
     public String UpdateEmployeeById(@PathVariable Long id,@ModelAttribute EmployeeModel employeeEntity) throws IOException {
-        phoneValidator.accept(employeeEntity.getPhoneNumbers());
+        phoneValidator.acceptExceptNumber(employeeEntity.getPhoneNumbers());
         employeeService.updateEmployee(id,employeeEntity);
         return "redirect:/employee/"+id;
     }
 
     @PostMapping("/addEmployee")
 
-    public String addEmployee(@ModelAttribute("newEmployee") EmployeeModel employee) throws IOException {
-        phoneValidator.accept(employee.getPhoneNumbers());
+    public String addEmployee(@ModelAttribute("newEmployee") EmployeeModel employee,@ModelAttribute("countryCode")String code) throws IOException {
+        phoneValidator.accept(code+employee.getPhoneNumbers());
 
         employeeService.saveEmployee(employeeMapper.toDomain(employee));
 
@@ -81,7 +82,7 @@ public class EmployeeController {
     @GetMapping("/addEmployee")
     public String addEmployee(Model model) throws IOException {
         model.addAttribute("newEmployee", new EmployeeModel());
-
+        model.addAttribute("countryCode", CountryCode.getCountryCodes());
         return "employee/addEmployee";
     }
 
@@ -124,6 +125,7 @@ public class EmployeeController {
         EmployeeEntity employeeEntity = employeeService.getEmployeeById(id);
 
         model.addAttribute("employeeEntity", employeeEntity);
+        model.addAttribute("countryCode", CountryCode.getCountryCodes());
 
         return "employee/employeeProfile";
     }

@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class EmployeeModel {
     @Enumerated(EnumType.STRING)
     private Sex sex;
     private String ref;
+
+    @Size(min = 13)
+
     private String phoneNumbers;
 
     private String address;
@@ -45,6 +50,8 @@ public class EmployeeModel {
     private int numberOfChildren;
     private LocalDate hireDate;
     private LocalDate departureDate;
+    private String countryCode;
+    private String code;
 
     @Enumerated(EnumType.STRING)
     private SocialCategory socioProfessionalCategory;
