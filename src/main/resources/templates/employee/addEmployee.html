@@ -67,6 +67,7 @@
                                 </div>
 
                             <div class="row" >
+
                                 <div class="col-md-6 mb-4 pb-2">
 
                                     <div class="form-outline">
@@ -81,7 +82,14 @@
                                         <input type="email" id="personnalmail" class="form-control form-control-lg" name="personalEmail" th:field="*{personalMail}" />
                                         <label class="form-label" for="personnalmail">personnalMail</label>
                                     </div>
-
+                                </div>
+                                <div  class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <label for="countryCode">Select Country Code:</label>
+                                        <select class="form-control" id="countryCode" name="countryCode">
+                                            <option th:each="code : ${countryCode}" th:value="${code}" th:text="${code}"></option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6 mb-4 pb-2">

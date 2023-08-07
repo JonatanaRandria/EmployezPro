@@ -13,12 +13,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -65,6 +67,7 @@ public class EmployeeEntity implements Serializable  {
 
     private LocalDate hireDate;
     private LocalDate departureDate;
+
 
     private SocialCategory socioProfessionalCategory;
     private String cnapsNumber;
