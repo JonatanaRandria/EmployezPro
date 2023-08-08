@@ -28,7 +28,7 @@ public class EmployeeDao {
                                                LocalDate departedAt,
                                                String sortField, String sortOrder) {
         StringBuilder query = new StringBuilder(
-                "SELECT DISTINCT e.* FROM Employee e LEFT JOIN Phone p ON e.id = p.employee_id WHERE 1=1 ");
+                "SELECT DISTINCT e.* FROM Employee e LEFT JOIN phone p ON e.phone_numbers_id = p.id WHERE 1=1 ");
 
         if (firstName != null && !firstName.isEmpty()) {
             query.append("AND (lower(e.first_name) LIKE :firstName OR e.first_name LIKE :firstName) ");
@@ -47,7 +47,7 @@ public class EmployeeDao {
         }
 
         if (code != null && !code.isEmpty()) {
-            query.append("AND p.code LIKE CONCAT('+',:code) ");
+            query.append("AND p.phone_number LIKE :code ");
         }
 
         if (startedAt != null && departedAt != null) {
