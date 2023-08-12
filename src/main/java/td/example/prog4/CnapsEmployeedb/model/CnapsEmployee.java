@@ -54,6 +54,8 @@ public class CnapsEmployee implements Serializable {
 
     private Integer childrenNumber;
 
+    private String endToendId;
+
 
 
    
