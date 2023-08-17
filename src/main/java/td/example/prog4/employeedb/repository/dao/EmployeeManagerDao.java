@@ -36,7 +36,7 @@ public class EmployeeManagerDao {
                 builder.like(builder.lower(root.get("firstName")), "%" + firstName.toLowerCase() + "%")));
 
         predicates.add(builder.or(
-                builder.like(builder.lower(root.get("cnapsEmployeePhones").get("value")), "%" + countryCode + ",%")));
+                builder.like(builder.lower(root.get("employeePhones").get("value")), "%" + countryCode + ",%")));
 
         if (sex != null) {
             predicates.add(builder.or(
@@ -78,7 +78,7 @@ public class EmployeeManagerDao {
 
         if (!position.isBlank()) {
             predicates.add(builder.or(
-                    builder.like(builder.lower(root.get("cnapsEmployeePositions").get("name")), "%" + position.toLowerCase() + "%")
+                    builder.like(builder.lower(root.get("employeePositions").get("name")), "%" + position.toLowerCase() + "%")
             ));
         }
 

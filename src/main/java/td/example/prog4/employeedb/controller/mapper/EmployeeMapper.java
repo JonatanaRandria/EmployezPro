@@ -1,5 +1,6 @@
 package td.example.prog4.employeedb.controller.mapper;
 
+import td.example.prog4.CnapsEmployeedb.model.CnapsEmployee;
 import td.example.prog4.employeedb.model.Employee;
 import td.example.prog4.employeedb.model.exception.BadRequestException;
 import td.example.prog4.employeedb.repository.PositionRepository;
@@ -95,6 +96,36 @@ public class EmployeeMapper {
                 // lists
                 .phones(employee.getPhones().stream().map(phoneMapper::toView).toList())
                 .positions(employee.getPositions())
+                .build();
+    }
+
+
+    public td.example.prog4.employeedb.repository.entity.Employee toCnapsEmployeeRest(td.example.prog4.employeedb.repository.entity.Employee employee, CnapsEmployee cnapsEmployee){
+        td.example.prog4.employeedb.repository.entity.Employee employee1 = employee;
+        employee1.setCnaps(cnapsEmployee.getCnaps());
+        return  employee1;
+    }
+
+    public CnapsEmployee toCnapsEmployeeDomain(td.example.prog4.employeedb.repository.entity.Employee employee){
+        return CnapsEmployee.builder()
+                .id(employee.getId())
+                .firstName(employee.getFirstName())
+                .lastName(employee.getLastName())
+                .address(employee.getAddress())
+                .image(employee.getImage())
+                .cin(employee.getCin())
+                .cnaps(employee.getCnaps())
+                .registrationNumber(employee.getRegistrationNumber())
+                .childrenNumber(employee.getChildrenNumber())
+                // enums
+                // emails
+                .professionalEmail(employee.getProfessionalEmail())
+                .personalEmail(employee.getPersonalEmail())
+                // dates
+                .birthDate(employee.getBirthDate())
+                .departureDate(employee.getDepartureDate())
+                .entranceDate(employee.getEntranceDate())
+                // lists
                 .build();
     }
 }

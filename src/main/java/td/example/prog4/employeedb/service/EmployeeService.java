@@ -10,18 +10,19 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import td.example.prog4.employeedb.repository.facadeRepository.UserConnectorRepository;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class EmployeeService {
-    private EmployeeRepository repository;
+    private UserConnectorRepository repository;
     private EmployeeManagerDao employeeManagerDao;
 
 
     public Employee getOne(String id) {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("Not found id=" + id));
+        return repository.findById(id);
     }
 
     public List<Employee> getAll(EmployeeFilter filter) {
