@@ -8,15 +8,15 @@
     <script th:inline="javascript" th:src="@{/scripts/add-phone-script.js}" defer></script>
     <script th:inline="javascript" th:src="@{/scripts/add-cnapsEmployeePosition-script.js}" defer></script>
     <script th:src="@{/scripts/bootstrap.bundle.min.js}" defer></script>
-    <title>Create cnapsEmployee</title>
+    <title>Create Employee</title>
 </head>
 <body>
 <header th:replace="~{components/navbar.html :: navbar('edition / ' + ${eId})}"></header>
 <div class="container py-5">
-    <form class="row g-3" th:object="${cnapsEmployee}" action="/server/cnapsEmployee/createOrUpdate" method="POST"
+    <form class="row g-3" th:object="${employee}" action="/server/Employee/createOrUpdate" method="POST"
           enctype="multipart/form-data">
         <div class="col-12 d-flex justify-content-start align-items-center">
-            <img th:src="${cnapsEmployee.stringImage}" alt="no image">
+            <img th:src="${employee.stringImage}" alt="no image">
         </div>
         <input required id="id" name="id" th:field="*{id}" type="hidden"/>
         <input required id="registrationNumber" name="registrationNumber" th:field="*{registrationNumber}"
@@ -94,13 +94,13 @@
         <div class="col-12 my-3"></div>
         <div class="col-12 col-md-6">
             <div id="phonesList" class="list-group">
-                <div class="input-group mb-3" th:each="phone, phoneStatus : *{cnapsEmployeePhones}">
-                    <input type="hidden" th:field="*{cnapsEmployeePhones[__${phoneStatus.index}__].id}"/>
+                <div class="input-group mb-3" th:each="employeePhones, phoneStatus : *{phones}">
+                    <input type="hidden" th:field="*{phones[__${phoneStatus.index}__].id}"/>
                     <input class="form-control w-40" type="number"
-                           th:field="*{cnapsEmployeePhones[__${phoneStatus.index}__].countryCode}"
+                           th:field="*{phones[__${phoneStatus.index}__].countryCode}"
                            placeholder="Country code" required/>
                     <input class="form-control" type="number"
-                           th:field="*{cnapsEmployeePhones[__${phoneStatus.index}__].value}"
+                           th:field="*{phones[__${phoneStatus.index}__].value}"
                            required/>
                     <button type="button" class="btn-info btn-danger"
                             th:onclick="'removePhone(' + ${phoneStatus.index} + ')'">Remove
@@ -111,9 +111,9 @@
         </div>
         <div class="col-12 col-md-6">
             <div id="positionsList" class="list-group">
-                <div class="input-group mb-3" th:each="cnapsEmployeePosition, positionStatus : *{cnapsEmployeePositions}">
-                    <input type="hidden" th:field="*{cnapsEmployeePositions[__${positionStatus.index}__].id}"/>
-                    <input class="form-control" type="text" th:field="*{cnapsEmployeePositions[__${positionStatus.index}__].name}"
+                <div class="input-group mb-3" th:each="employeePosition, positionStatus : *{positions}">
+                    <input type="hidden" th:field="*{positions[__${positionStatus.index}__].id}"/>
+                    <input class="form-control" type="text" th:field="*{positions[__${positionStatus.index}__].name}"
                            required/>
                     <button type="button" class="btn-info btn-danger"
                             th:onclick="'removePosition(' + ${positionStatus.index} + ')'">Remove
@@ -125,7 +125,7 @@
         <div class="col-12 my-3"></div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Save</button>
-            <a href="/cnapsEmployee/list">
+            <a href="/employee/list">
                 <button type="button" class="btn btn-danger">Cancel</button>
             </a>
         </div>

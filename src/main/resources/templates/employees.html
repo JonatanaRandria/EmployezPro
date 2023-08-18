@@ -11,19 +11,19 @@
 <header th:replace="~{components/navbar.html :: navbar('list')}"></header>
 <div class="container py-5">
     <div>
-        <a href="/cnapsEmployee/create">
-            <button class="btn btn-success">create new cnapsEmployee</button>
+        <a href="/employee/create">
+            <button class="btn btn-success">create new Employee</button>
         </a>
-        <a href="/server/cnapsEmployee/list/filters/clear">
+        <a href="/server/employee/list/filters/clear">
             <button class="btn btn-success">clear filters</button>
         </a>
-        <a href="/server/cnapsEmployee/list/csv">
+        <a href="/server/employee/list/csv">
             <button class="btn btn-success">export</button>
         </a>
     </div>
     <!--        filters-->
     <div class="container mt-3">
-        <form action="/cnapsEmployee/list" class="row g-3" th:object="${employeeFilters}" method="get">
+        <form action="/employee/list" class="row g-3" th:object="${employeeFilters}" method="get">
             <div class="col-md-4 col-12 col-sm-6">
                 <label for="firstName" class="form-label">First name</label>
                 <input type="text" th:field="*{firstName}" class="form-control" name="firstName" id="firstName"/>
@@ -102,27 +102,27 @@
                 <th>Last name</th>
                 <th>First name</th>
                 <th>Sex</th>
-                <th>cnapsEmployeePositions</th>
+                <th>employeePositions</th>
                 <th>Entrance date</th>
                 <th>Departure date</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="cnapsEmployee : *{employees}">
-                <td><img class="img-list" th:src="*{cnapsEmployee.stringImage}" alt="no image"></td>
-                <td><p th:text="*{cnapsEmployee.lastName}"></p></td>
-                <td><p th:text="*{cnapsEmployee.firstName}"></p></td>
-                <td><p th:text="*{cnapsEmployee.sex.toString()}"></p></td>
-                <td><p th:each="cnapsEmployeePosition : *{cnapsEmployee.cnapsEmployeePositions}" th:text="*{cnapsEmployeePosition.name}"
+            <tr th:each="employee : *{employees}">
+                <td><img class="img-list" th:src="*{employee.stringImage}" alt="no image"></td>
+                <td><p th:text="*{employee.lastName}"></p></td>
+                <td><p th:text="*{employee.firstName}"></p></td>
+                <td><p th:text="*{employee.sex.toString()}"></p></td>
+                <td><p th:each="employeePosition : *{employee.positions}" th:text="*{employeePosition.name}"
                        class="p-2 rounded-3 bg-body m-2"></p></td>
-                <td><p th:text="*{cnapsEmployee.entranceDate.toString()}"></p></td>
-                <td><p th:text="*{cnapsEmployee.departureDate.toString()}"></p></td>
+                <td><p th:text="*{employee.entranceDate.toString()}"></p></td>
+                <td><p th:text="*{employee.departureDate.toString()}"></p></td>
                 <td>
-                    <a th:href="'/cnapsEmployee/edit/'+ *{cnapsEmployee.id}">
+                    <a th:href="'/employee/edit/'+ *{employee.id}">
                         <button class="btn btn-primary">edit</button>
                     </a>
-                    <a th:href="'/cnapsEmployee/show/'+*{cnapsEmployee.id}">
+                    <a th:href="'/employee/show/'+*{employee.id}">
                         <button class="btn btn-primary">show</button>
                     </a>
                 </td>
