@@ -1,7 +1,6 @@
 package td.example.prog4.employeedb.controller.mapper;
 
 import td.example.prog4.CnapsEmployeedb.model.CnapsEmployee;
-import td.example.prog4.employeedb.model.Employee;
 import td.example.prog4.employeedb.model.exception.BadRequestException;
 import td.example.prog4.employeedb.repository.PositionRepository;
 import td.example.prog4.employeedb.repository.entity.Phone;
@@ -100,7 +99,7 @@ public class EmployeeMapper {
     }
 
 
-    public td.example.prog4.employeedb.repository.entity.Employee toCnapsEmployeeRest(td.example.prog4.employeedb.repository.entity.Employee employee, CnapsEmployee cnapsEmployee){
+    public td.example.prog4.employeedb.repository.entity.Employee toCnapsEmployeeView(td.example.prog4.employeedb.repository.entity.Employee employee, CnapsEmployee cnapsEmployee){
         td.example.prog4.employeedb.repository.entity.Employee employee1 = employee;
         employee1.setCnaps(cnapsEmployee.getCnaps());
         return  employee1;

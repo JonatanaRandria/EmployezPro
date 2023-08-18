@@ -11,9 +11,6 @@ import td.example.prog4.employeedb.model.exception.NotFoundException;
 import td.example.prog4.employeedb.repository.EmployeeRepository;
 import td.example.prog4.employeedb.repository.entity.Employee;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Repository
 @Primary
 @AllArgsConstructor
@@ -26,7 +23,7 @@ public class EmployeeConnectorFacade implements UserConnectorRepository {
     public Employee findById(String id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found id=" + id));
         CnapsEmployee cnapsEmployee = cnapsEmployeeRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found id=" + id));
-        return employeeMapper.toCnapsEmployeeRest(employee,cnapsEmployee);
+        return employeeMapper.toCnapsEmployeeView(employee,cnapsEmployee);
     }
 
 

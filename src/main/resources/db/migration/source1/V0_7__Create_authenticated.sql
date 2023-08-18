@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "cnapsEmployeeSession"
+CREATE TABLE IF NOT EXISTS "EmployeeSession"
 (
     id         varchar
         constraint session_pk primary key default uuid_generate_v4(),
